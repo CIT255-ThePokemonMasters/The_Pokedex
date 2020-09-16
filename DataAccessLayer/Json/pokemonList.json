@@ -1,0 +1,143 @@
+[
+  {
+    // Source https://www.pokemon.com/us/pokedex///
+    //1
+    "Id": 777,
+    "Name": "Togedemaru",
+    "Type": [ "Electric", "Steel" ],
+    "Weaknesses": [ "Fire", "Fighting", "Ground" ],
+    "Abilities": "Lightning Rod, Iron Barbs",
+    "ImageFileName": "poke777.png",
+    "Description": "With the long hairs on its back, this Pokémon takes in electricity from other electric Pokémon. It stores what it absorbs in an electric sac.",
+    "Height": "1' 00",
+    "Weight": 7.3,
+    "Category": "Roly-Poly",
+    "ImageFilePath": null
+  },
+  {
+    //2
+    "Id": "025",
+    "Name": "Pikachu",
+    "Type": "Electric",
+    "Weaknesses": "Ground",
+    "Abilties": "Static",
+    "ImageFileName": "poke025.png",
+    "Description": "When Pikachu meet, they’ll touch their tails together and exchange electricity through them as a form of greeting.",
+    "Height": "1' 04",
+    "Weight": 13.2,
+    "Category": "Mouse",
+    "ImageFilePath": null
+  },
+  {
+    //3
+    "Id": "019",
+    "Name": "Rattata",
+    "Type": "Normal",
+    "Weaknesses": "Fighting",
+    "Abilities": "Run Away, Guts",
+    "ImageFileName": "poke019.png",
+    "Description": "Will chew on anything with its fangs. If you see one, you can be certain that 40 more live in the area.",
+    "Height": "1' 00",
+    "Weight": 7.7,
+    "Category": "Mouse",
+    "ImageFilePath": null
+  },
+  {
+    //4
+    "Id": "059",
+    "Name": "Arcanine",
+    "Type": "Fire",
+    "Weaknesses": [ "Water", "Ground", "Rock" ],
+    "Abilities": "Intimidate, Flsh Fire",
+    "ImageFileName": "poke059.png",
+    "Description": "A Pokémon that has long been admired for its beauty. It runs agilely as if on wings.",
+    "Height": "6' 03",
+    "Weight": 341.7,
+    "Category": "Legendary",
+    "ImageFilePath": null
+  },
+  {
+    //5
+    "Id": "012",
+    "Name": "Butterfree",
+    "Type": [ "Bug", "Flying" ],
+    "Weaknesses": [ "Fire", " Flying", "Electric", "Ice", "Rock" ],
+    "Abilities": "Compound Eyes",
+    "ImageFileName": "poke012.png",
+    "Description": "In battle, it flaps its wings at great speed to release highly toxic dust into the air.",
+    "Height": "3' 07",
+    "Weight": 70.5,
+    "Category": "Butterfly",
+    "ImageFilePath": null
+  },
+  {
+    //6
+    "Id": 576,
+    "Name": "Gothitelle",
+    "Type": [ "Psychic" ],
+    "Weaknesses": [ "Ghost", " Dark", "Bug" ],
+    "Abilities": "Frisk, Competitive",
+    "ImageFileName": "poke576.png",
+    "Description": "It has tremendous psychic power, but it dislikes conflict. It’s also able to predict the future based on the movement of the stars.",
+    "Height": "4' 11",
+    "Weight": 97.0,
+    "Category": "Astral Body",
+    "ImageFilePath": null
+  },
+  {
+    //7
+    "Id": 700,
+    "Name": "Sylveon",
+    "Type": [ "Fairy" ],
+    "Weaknesses": [ "Steel", "Poison" ],
+    "Abilities": "Cute Charm",
+    "ImageFileName": "poke700.png",
+    "Description": "By releasing enmity-erasing waves from its ribbonlike feelers, Sylveon stops any conflict.",
+    "Height": "3' 03",
+    "Weight": 51.8,
+    "Category": "Intertwining",
+    "ImageFilePath": null
+  },
+  {
+    //8
+    "Id": 197,
+    "Name": "Umbreon",
+    "Type": "Dark",
+    "Weaknesses": [ "Fairy", "Bug", "Fighting" ],
+    "Abilities": "Synchronize",
+    "ImageFileName": "poke197.png",
+    "Description": "When this Pokémon becomes angry, its pores secrete a poisonous sweat, which it sprays at its opponent’s eyes.",
+    "Height": "3' 03",
+    "Weight": 59.5,
+    "Category": "Moonlight",
+    "ImageFilePath": null
+  },
+  {
+    //9
+    "Id": 184,
+    "Name": "Azumarill",
+    "Type": [ "Water", "Fairy" ],
+    "Weaknesses": [ "Grass", "Electric", "Poison" ],
+    "Abilities": "Thick Fat, Huge Power",
+    "ImageFileName": "poke184.png",
+    "Description": "These Pokémon create air-filled bubbles. When Azurill play in rivers, Azumarill will cover them with these bubbles.",
+    "Height": "2' 07",
+    "Weight": 62.8,
+    "Category": "Aqua Rabbit",
+    "ImageFilePath": null
+  },
+  {
+    //10
+    "Id": 299,
+    "Name": "Nosepass",
+    "Type": "Rock",
+    "Weaknesses": [ "Water", "Steel", "Grass", "Fighting", "Ground" ],
+    "Abilities": "Sturdy, Magnet Pull",
+    "ImageFileName": "poke299.png",
+    "Description": "It moves less than an inch a year, but when it’s in a jam, it will spin and drill down into the ground in a split second.",
+    "Height": "3' 03",
+    "Weight": 213.8,
+    "Category": "Compass",
+    "ImageFilePath": null
+  }
+]
