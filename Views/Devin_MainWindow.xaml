@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:The_Pokedex.Views"
         mc:Ignorable="d"
         Title="Devin_MainWindow" 
-        Height="450" 
-        Width="800"
+        Height="500" 
+        Width="1000"
         Background="DarkRed">
     <Window.Resources>
         <Style x:Key="BodyTextStyle" TargetType="Label">
@@ -28,8 +28,15 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Arial Black"/>
         </Style>
+        <Style x:Key="LargeInfoBoxStyle" TargetType="TextBlock">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Arial Black"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
         <Style x:Key="BlueSquareButton" TargetType="Rectangle">
-            <Setter Property="Fill" Value="Blue"/>
+            <Setter Property="Fill" Value="DarkBlue"/>
             <Setter Property="Width" Value="50"/>
             <Setter Property="Height" Value="50"/>
         </Style>
@@ -38,6 +45,14 @@
             <Setter Property="Width" Value="20"/>
             <Setter Property="Height" Value="20"/>
         </Style>
+        <Style x:Key="AddEditDeleteButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Background" Value="DarkOrange" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="FontFamily" Value="Arial Black" />
+        </Style>
         <Style x:Key="BlackCircle" TargetType="Ellipse">
             <Setter Property="Fill" Value="Black"/>
             <Setter Property="Width" Value="20"/>
@@ -45,14 +60,287 @@
         </Style>
         <Style x:Key="RoundedBorderStyle" TargetType="Border">
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="1"/>
         </Style>
         <Style x:Key="StandardBorder" TargetType="Border">
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderThickness" Value="4"/>
             <Setter Property="BorderBrush" Value="Black"/>
         </Style>
     </Window.Resources>
-    <Grid>
         
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!-- Left side of display -->
+            <Border
+                Grid.Column="0"
+                Style="{StaticResource StandardBorder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Orientation="Horizontal">
+                        
+                        <!-- Pokemon Image -->
+                        <Image
+                            Source="{Binding SelectedPokemon.ImageFilePath}"
+                            RenderTransformOrigin="1,1"
+                            Height="200"
+                            Width="200"/>
+                        
+                        <!-- List of Pokemon -->
+                        <ListBox 
+                            Margin="80,0,0,0"
+                            Width="200"
+                            Height="200"
+                            ItemsSource="{Binding Pokemons}"
+                            SelectedItem="{Binding SelectedPokemon, Mode=TwoWay}"
+                            IsSynchronizedWithCurrentItem="True"
+                            >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label 
+                                                Content="{Binding Name}"
+                                                Width="100"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        Width="450">
+                        <Button 
+                            Margin="120,0,15,0"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Content="View"
+                            FontSize="14"
+                            FontWeight="ExtraBold"
+                            Width="100"
+                            Height="20"
+                            Background="Red"
+                            Command="{Binding ViewCharacterCommand}"/>
+                        <Rectangle 
+                            Style="{StaticResource BlackSquareButton}"
+                            Width="100"
+                            Height="10"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2"
+                        Width="470">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Ellipse
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Style="{StaticResource BlackCircle}"
+                                Width="50"
+                                Height="50"/>
+                            
+                            <!-- Pokemon Number Text Block -->
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                TextAlignment="Center"
+                                Text="{Binding SelectedPokemon.ID}"
+                                Style="{StaticResource InfoBoxStyle}"
+                                FontSize="40"
+                                FontWeight="ExtraBold"
+                                Width="120"
+                                Height="100"/>
+                            <Image
+                                Grid.Column="2"
+                                Width="100"
+                                Height="100"
+                                Source="C:\NMC Classes\CIT255\Master_Detail_App\Sprint2\The_Pokedex\Images\d_pad.png"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!-- Right side of display -->
+            <Border
+                Grid.Column="1"
+                Style="{StaticResource StandardBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="150"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Info Text Block -->
+                    <StackPanel Grid.Row="0">
+                        <Grid
+                            Background="Black"
+                            Width="470">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Grid.Row="0"
+                                Orientation="Horizontal">
+                                <Label 
+                                     VerticalAlignment="Center"
+                                    Content="Height(ft):"
+                                    Foreground="White"/>
+                                <TextBlock 
+                                     VerticalAlignment="Center"
+                                    Grid.Row="0"
+                                    Text="{Binding SelectedPokemon.Height}"
+                                    Foreground="White"/>
+                                <Label 
+                                    VerticalAlignment="Center"
+                                    Margin="100,0,0,0"
+                                    Content="Weight(lbs):"
+                                    Foreground="White"/>
+                                <TextBlock 
+                                    VerticalAlignment="Center"
+                                    Grid.Row="0"
+                                    Text="{Binding SelectedPokemon.Weight}"
+                                    Foreground="White"/>
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal">
+                                <Label 
+                                    VerticalAlignment="Center"
+                                    Content="Type: "
+                                    Foreground="White"/>
+                                <TextBlock 
+                                    Text="{Binding SelectedPokemon.PokemonType}"
+                                    Foreground="white"/>
+                            </StackPanel>
+                            <TextBlock 
+                                Text="{Binding SelectedPokemon.Description}"
+                                Grid.Row="3"
+                                Style="{StaticResource LargeInfoBoxStyle}"/>
+                        </Grid>
+                    </StackPanel>
+                    
+                    <!-- Decorative Blue Buttons -->
+                        <StackPanel
+                        Grid.Row="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Rectangle 
+                                Height="40"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle 
+                                Height="40"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle 
+                                Height="40"
+                                Grid.Column="2"
+                                Grid.Row="0"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle 
+                                Height="40"
+                                Grid.Column="3"
+                                Grid.Row="0"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle
+                                Height="40"
+                                Grid.Column="4"
+                                Grid.Row="0"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle 
+                                Margin="0,15,0,0"
+                                Height="40"
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle 
+                                Margin="0,15,0,0"
+                                Height="40"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle 
+                                Margin="0,15,0,0"
+                                Height="40"
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle
+                                Margin="0,15,0,0"
+                                Height="40"
+                                Grid.Column="3"
+                                Grid.Row="1"
+                                Style="{StaticResource BlueSquareButton}"/>
+                            <Rectangle
+                                Margin="0,15,0,0"
+                                Height="40"
+                                Grid.Column="4"
+                                Grid.Row="1"
+                                Style="{StaticResource BlueSquareButton}"/>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button 
+                                Grid.Column="0"
+                                Content="Add"
+                                Style="{StaticResource AddEditDeleteButtonStyle}"/>
+                            <Button 
+                                Grid.Column="1"
+                                Content="Edit"
+                                Style="{StaticResource AddEditDeleteButtonStyle}"/>
+                            <Button 
+                                Grid.Column="2"
+                                Content="Delete"
+                                Style="{StaticResource AddEditDeleteButtonStyle}"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+         </Grid>
     </Grid>
 </Window>

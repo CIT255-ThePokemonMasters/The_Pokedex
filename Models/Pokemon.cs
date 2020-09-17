@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The_Pokedex.UtilityClass;
 
 namespace The_Pokedex.Models
 {
-    public class Pokemon
+    public class Pokemon : ObservableObject
     {
         #region Enums
 
@@ -34,7 +35,7 @@ namespace The_Pokedex.Models
 
         #endregion
 
-        #region Properties
+        #region Fields
 
         private int _id;
         private double _weight;
@@ -50,79 +51,126 @@ namespace The_Pokedex.Models
 
         #endregion
 
-        #region Fields
+        #region Properties
 
         public int ID
         {
             get { return _id; }
-            set { _id = value; }
+            set 
+            { 
+                _id = value;
+                OnPropertyChanged(nameof(ID));
+            }
         }
 
         public double Weight 
         {
             get { return _weight; }
-            set { _weight = value; }
+            set 
+            { 
+                _weight = value;
+                OnPropertyChanged(nameof(Weight));
+            }
         }
 
         public double Height
         {
             get { return _height; }
-            set { _height = value; }
+            set 
+            { 
+                _height = value;
+                OnPropertyChanged(nameof(Height));
+            }
         }
 
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set 
+            { 
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
         }
 
         public string Description 
         {
             get { return _description; }
-            set { _description = value; }
+            set 
+            { 
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
         }
 
         public string Abilities
         {
             get { return _abilities; }
-            set { _abilities = value; }
+            set 
+            { 
+                _abilities = value;
+                OnPropertyChanged(nameof(Abilities));
+            }
         }
 
         public string Category
         {
             get { return _category; }
-            set { _category = value; }
+            set 
+            { 
+                _category = value;
+                OnPropertyChanged(nameof(Category));
+            }
         }
 
         public string ImageFileName 
         {
             get { return _imageFileName; }
-            set { _imageFileName = value; }
+            set 
+            { 
+                _imageFileName = value;
+                OnPropertyChanged(nameof(ImageFileName));
+            }
         }
 
         public string ImageFilePath 
         { 
             get { return _imageFilePath; }
-            set { _imageFilePath = value; }
+            set 
+            { 
+                _imageFilePath = value;
+                OnPropertyChanged(nameof(ImageFilePath));
+            }
         }
 
         public List<Type> PokemonType
         {
             get { return _pokemonType; }
-            set { _pokemonType = value; }
+            set 
+            { 
+                _pokemonType = value;
+                OnPropertyChanged(nameof(PokemonType));
+            }
         }
 
         public List<Type> Weakness
         {
             get { return _weakness; }
-            set { _weakness = value; }
+            set 
+            { 
+                _weakness = value;
+                OnPropertyChanged(nameof(Weakness));
+            }
         }
 
         #endregion
 
         #region Constructors
 
-
+        public Pokemon() 
+        { 
+        
+        }
 
         #endregion
 

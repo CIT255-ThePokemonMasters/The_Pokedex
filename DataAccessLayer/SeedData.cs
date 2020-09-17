@@ -17,8 +17,8 @@ namespace The_Pokedex.DataAccessLayer
                 {
                     ID = 001,
                     Name = "Bulbasaur",
-                    PokemonType = {Pokemon.Type.Grass, Pokemon.Type.Poison},
-                    Weakness = {Pokemon.Type.Fire, Pokemon.Type.Psychic, Pokemon.Type.Ice, Pokemon.Type.Flying},
+                    PokemonType = new List<Pokemon.Type>(){Pokemon.Type.Grass, Pokemon.Type.Poison},            
+                    Weakness = new List<Pokemon.Type>(){Pokemon.Type.Fire, Pokemon.Type.Psychic, Pokemon.Type.Ice, Pokemon.Type.Flying},
                     Abilities = "Ram, Razor Leaf",
                     Weight = 15.2,
                     Height = 2.4,
@@ -31,8 +31,8 @@ namespace The_Pokedex.DataAccessLayer
                 {
                     ID = 004,
                     Name = "Charmander",
-                    PokemonType = {Pokemon.Type.Fire},
-                    Weakness = {Pokemon.Type.Water, Pokemon.Type.Ground, Pokemon.Type.Rock},
+                    PokemonType = new List<Pokemon.Type>(){Pokemon.Type.Fire},
+                    Weakness = new List<Pokemon.Type>(){Pokemon.Type.Water, Pokemon.Type.Ground, Pokemon.Type.Rock},
                     Abilities = "Blaze",
                     Weight = 18.7,
                     Height = 2.0,
@@ -45,8 +45,8 @@ namespace The_Pokedex.DataAccessLayer
                 {
                     ID = 007,
                     Name = "Squirtle",
-                    PokemonType = {Pokemon.Type.Water},
-                    Weakness = {Pokemon.Type.Electric, Pokemon.Type.Grass},
+                    PokemonType = new List<Pokemon.Type>(){Pokemon.Type.Water},
+                    Weakness = new List<Pokemon.Type>(){Pokemon.Type.Electric, Pokemon.Type.Grass},
                     Abilities = "Torrent",
                     Weight = 19.8,
                     Height = 1.8,
@@ -59,8 +59,8 @@ namespace The_Pokedex.DataAccessLayer
                 {
                     ID = 150,
                     Name = "Mewtwo",
-                    PokemonType = {Pokemon.Type.Psychic},
-                    Weakness = {Pokemon.Type.Ghost, Pokemon.Type.Dark, Pokemon.Type.Bug},
+                    PokemonType = new List<Pokemon.Type>(){Pokemon.Type.Psychic},
+                    Weakness = new List<Pokemon.Type>(){Pokemon.Type.Ghost, Pokemon.Type.Dark, Pokemon.Type.Bug},
                     Abilities = "Pressure",
                     Weight = 269.0,
                     Height = 6.7,
@@ -73,14 +73,14 @@ namespace The_Pokedex.DataAccessLayer
                 {
                     ID = 151,
                     Name = "Mew",
-                    PokemonType = {Pokemon.Type.Psychic},
-                    Weakness = {Pokemon.Type.Ghost, Pokemon.Type.Dark, Pokemon.Type.Bug},
+                    PokemonType = new List<Pokemon.Type>(){Pokemon.Type.Psychic},
+                    Weakness = new List<Pokemon.Type>(){Pokemon.Type.Ghost, Pokemon.Type.Dark, Pokemon.Type.Bug},
                     Abilities = "Synchronize",
                     Weight = 8.8,
                     Height = 1.4,
                     Description = "When viewed through a microscope, this Pokémon’s short, fine, delicate hair can be seen.",
                     Category = "New Species",
-                    ImageFileName = "mewtwo.png"
+                    ImageFileName = "mew.png"
                 }
             };
         }

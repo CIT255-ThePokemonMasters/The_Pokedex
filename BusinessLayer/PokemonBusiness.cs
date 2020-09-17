@@ -8,7 +8,7 @@ using The_Pokedex.Models;
 
 namespace The_Pokedex.BusinessLayer
 {
-    class PokemonBusiness
+    public class PokemonBusiness
     {
         #region Properties
 
