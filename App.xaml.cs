@@ -20,17 +20,17 @@ namespace The_Pokedex
         {
             PokemonBusiness pokemonBusiness = new PokemonBusiness();
 
-            //Devin_ViewModel devin_ViewModel = new Devin_ViewModel(pokemonBusiness);
+            Devin_ViewModel devin_ViewModel = new Devin_ViewModel(pokemonBusiness);
 
-            //Devin_MainWindow devin_MainWindow = new Devin_MainWindow();
-            //devin_MainWindow.DataContext = devin_ViewModel;
-            //devin_MainWindow.Show();            
+            Devin_MainWindow devin_MainWindow = new Devin_MainWindow();
+            devin_MainWindow.DataContext = devin_ViewModel;
+            devin_MainWindow.Show();
 
-            Christine_ViewModel christine_ViewModel = new Christine_ViewModel(pokemonBusiness);
+            //Christine_ViewModel christine_ViewModel = new Christine_ViewModel(pokemonBusiness);
 
-            Christine_MainWindow christine_MainWindow = new Christine_MainWindow();
-            christine_MainWindow.DataContext = christine_ViewModel;
-            christine_MainWindow.Show();
+            //Christine_MainWindow christine_MainWindow = new Christine_MainWindow();
+            //christine_MainWindow.DataContext = christine_ViewModel;
+            //christine_MainWindow.Show();
         }
     }
 }

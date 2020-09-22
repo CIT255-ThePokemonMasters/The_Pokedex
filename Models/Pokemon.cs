@@ -13,24 +13,24 @@ namespace The_Pokedex.Models
 
         public enum Type
         {
-            Normal,
-            Fighting,
-            Fire,
-            Water,
-            Grass,
-            Electric,
-            Flying,
-            Poison,
-            Ground,
-            Rock,
-            Psychic,
-            Ice,
-            Dragon,
-            Ghost,
-            Dark,
-            Steel,
-            Fairy,
-            Bug
+            NORMAL,
+            FIGHTING,
+            FIRE,
+            WATER,
+            GRASS,
+            ELECTRIC,
+            FLYING,
+            POISON,
+            GROUND,
+            ROCK,
+            PSYCHIC,
+            ICE,
+            DRAGON,
+            GHOST,
+            DARK,
+            STEEL,
+            FAIRY,
+            BUG
         }
 
         #endregion
