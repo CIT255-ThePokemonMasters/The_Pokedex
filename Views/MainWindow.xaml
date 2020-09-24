@@ -6,10 +6,35 @@
         xmlns:local="clr-namespace:The_Pokedex"
         mc:Ignorable="d"
         Title="MainWindow" 
-        Height="450" 
-        Width="800"
+        Height="300" 
+        Width="500"
+        Background="DarkRed"
         >
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DockPanel
+                Height="20"
+                >
+            <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
+                <MenuItem Header= "Views">
+                    <MenuItem Header="Devin's View" Command="{Binding ViewSelectionCommand}" CommandParameter="DevinsView" Background="Black"/>
+                    <MenuItem Header="Christine's View" Command="{Binding ViewSelectionCommand}" CommandParameter="ChristinesView"  Background="Black"/>
+                    <MenuItem Header="Bruce's View" Command="{Binding ViewSelectionCommand}" CommandParameter="BrucesView"  Background="Black"/>
+                </MenuItem>
+                <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="Black"/>
+            </Menu>
+        </DockPanel>
+
+        <Label 
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="The Pokedex"
+            FontSize="48"
+            Foreground="Yellow"
+            FontWeight="ExtraBold"/>
     </Grid>
 </Window>

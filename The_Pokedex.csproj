@@ -90,6 +90,7 @@
     <Compile Include="UtilityClass\RelayCommand.cs" />
     <Compile Include="ViewModels\Christine_ViewModel.cs" />
     <Compile Include="ViewModels\Devin_ViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\Christine_MainWindow.xaml.cs">
       <DependentUpon>Christine_MainWindow.xaml</DependentUpon>
     </Compile>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:The_Pokedex.Views"
         mc:Ignorable="d"
         Title="Devin_MainWindow" 
-        Height="500" 
+        Height="520" 
         Width="1000"
         Background="DarkRed">
     <Window.Resources>
@@ -68,16 +68,41 @@
             <Setter Property="BorderBrush" Value="Black"/>
         </Style>
     </Window.Resources>
-        
+
+    <!--<Window.DataContext>
+        <local:Devin_MainWindow/>
+    </Window.DataContext>-->
+    
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DockPanel
+                Grid.Column="1"
+                Grid.Row="0"
+                Height="20"
+                Width="495"
+                >
+                <Menu DockPanel.Dock="Top" Background="DarkRed" Foreground="White">
+                    <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="DarkRed" Margin="460,0,0,0"/>
+                </Menu>
+            </DockPanel>
+            <Rectangle 
+                Grid.Column="0"
+                Grid.Row="0"
+                Fill="DarkRed"/>
+
             <!-- Left side of display -->
             <Border
                 Grid.Column="0"
+                Grid.Row="1"
                 Style="{StaticResource StandardBorder}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -188,7 +213,7 @@
                                     Margin="0,5,0,0"
                                     Content="Search"
                                     Style="{StaticResource AddEditDeleteButtonStyle}"
-                                    Command="{Binding Path=SearchByNameCommand}"
+                                    Command="{Binding SearchByNameCommand }"
                                     Height="20"/>
                             </StackPanel>
 
@@ -261,6 +286,7 @@
             <!-- Right side of display -->
             <Border
                 Grid.Column="1"
+                Grid.Row="1"
                 Style="{StaticResource StandardBorder}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -273,7 +299,7 @@
                     <StackPanel Grid.Row="0">
                         <Grid
                             Background="Black"
-                            Width="470">
+                            Width="495">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"/>
                                 <RowDefinition Height="50"/>

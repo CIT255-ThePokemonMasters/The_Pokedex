@@ -11,6 +11,7 @@ using The_Pokedex.BusinessLayer;
 using The_Pokedex.DataAccessLayer;
 using The_Pokedex.Models;
 using The_Pokedex.UtilityClass;
+using The_Pokedex.Views;
 
 namespace The_Pokedex.ViewModels
 {
@@ -43,6 +44,11 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(OnFilterPokemon)); }
         }
 
+        public ICommand ViewSelectionCommand 
+        {
+            get { return new RelayCommand(new Action<object>(ViewSelection)); }
+        }
+
         #endregion
 
         #region Fields
@@ -52,12 +58,8 @@ namespace The_Pokedex.ViewModels
         private Pokemon _detailedViewPokemon;
         private PokemonBusiness _pokemonBusiness;
 
-        private bool _isEditingAdding = false;
-        private bool _showAddButton;
-
         private string _typeToString;
         private string _weaknessToString;
-        private string _sortType;
         private string _searchText;
         private string _filterText;
         private string _errorMessage;
@@ -297,7 +299,7 @@ namespace The_Pokedex.ViewModels
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
-            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText)));
+            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
         }
 
         /// <summary>
@@ -329,6 +331,19 @@ namespace The_Pokedex.ViewModels
                     break;
                 default:
                     ErrorMessage = "*Sorry, that type was not recognized";
+                    break;
+            }
+        }
+
+        private void ViewSelection(object obj) 
+        {
+            string viewString = obj.ToString();
+            switch (viewString)
+            {
+                case "Exit":
+                    Environment.Exit(0);
+                    break;
+                default:
                     break;
             }
         }
