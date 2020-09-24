@@ -327,6 +327,21 @@ namespace The_Pokedex.ViewModels
                     UpdateImageFilePath();
                     Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.FIRE)));
                     break;
+                case "WATER":
+                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                    UpdateImageFilePath();
+                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.WATER)));
+                    break;
+                case "GRASS":
+                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                    UpdateImageFilePath();
+                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.GRASS)));
+                    break;
+                case "PSYCHIC":
+                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                    UpdateImageFilePath();
+                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.PSYCHIC)));
+                    break;
                 default:
                     ErrorMessage = "*Sorry, that type was not recognized";
                     break;

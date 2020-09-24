@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using The_Pokedex.BusinessLayer;
 using The_Pokedex.DataAccessLayer;
@@ -13,11 +14,34 @@ using The_Pokedex.UtilityClass;
 
 namespace The_Pokedex.ViewModels
 {
-    class Christine_ViewModel : ObservableObject
+    public class Christine_ViewModel : ObservableObject
     {
         #region Commands
 
+        /// <summary>
+        /// view character comman
+        /// </summary>
         public ICommand ViewCharacterCommand { get; set; }
+
+        public ICommand SortPokemonCommand
+        {
+            get { return new RelayCommand(new Action<object>(OnSortPokemon)); }
+        }
+
+        public ICommand SearchByNameCommand
+        {
+            get { return new RelayCommand(new Action<object>(OnSearchByName)); }
+        }
+
+        public ICommand ResetPokemonListCommand
+        {
+            get { return new RelayCommand(new Action<object>(OnResetPokemonList)); }
+        }
+
+        public ICommand FilterPokemonCommand
+        {
+            get { return new RelayCommand(new Action<object>(OnFilterPokemon)); }
+        }
 
         #endregion
 
@@ -31,11 +55,14 @@ namespace The_Pokedex.ViewModels
         private bool _isEditingAdding = false;
         private bool _showAddButton;
 
+        private string _typeToString;
+        private string _weaknessToString;
         private string _sortType;
         private string _searchText;
-        private string _minWeightText;
-        private string _maxWeightText;
+        private string _filterText;
+        private string _errorMessage;
 
+        private ComboBox _filterComboBox;
         #endregion
 
         #region Properties
@@ -57,6 +84,8 @@ namespace The_Pokedex.ViewModels
             {
                 _selectedPokemon = value;
                 OnPropertyChanged(nameof(SelectedPokemon));
+                ConvertTypeToString();
+                ConvertWeaknessToString();
             }
         }
 
@@ -70,6 +99,66 @@ namespace The_Pokedex.ViewModels
             }
         }
 
+        public string TypeToString
+        {
+            get { return _typeToString; }
+            set
+            {
+                _typeToString = value;
+                OnPropertyChanged(nameof(TypeToString));
+            }
+        }
+
+        public string WeaknessToString
+        {
+            get { return _weaknessToString; }
+            set
+            {
+                _weaknessToString = value;
+                OnPropertyChanged(nameof(WeaknessToString));
+            }
+        }
+
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+            }
+        }
+
+        public string FilterText
+        {
+            get { return _filterText; }
+            set
+            {
+                _filterText = value;
+                OnPropertyChanged(nameof(FilterText));
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public ComboBox FilterComboBox
+        {
+            get { return _filterComboBox; }
+            set
+            {
+                _filterComboBox = value;
+                OnPropertyChanged(nameof(FilterComboBox));
+            }
+        }
         #endregion
 
         #region Constructors
@@ -128,7 +217,137 @@ namespace The_Pokedex.ViewModels
             OnPropertyChanged(nameof(DetailedPokemonView));
         }
 
+        /// <summary>
+        /// convert type to string
+        /// </summary>
+        private void ConvertTypeToString()
+        {
+            TypeToString = "";
+
+            if (SelectedPokemon != null)
+            {
+                if (SelectedPokemon.PokemonType.Count > 1)
+                {
+                    foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                    {
+                        TypeToString += type.ToString() + "/ ";
+                    }
+                }
+                else
+                {
+                    foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                    {
+                        TypeToString += type.ToString();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// convert weakness to string
+        /// </summary>
+        private void ConvertWeaknessToString()
+        {
+            WeaknessToString = "";
+
+            if (SelectedPokemon != null)
+            {
+                if (SelectedPokemon.Weakness.Count > 1)
+                {
+                    foreach (Pokemon.Type weakness in SelectedPokemon.Weakness)
+                    {
+                        WeaknessToString += weakness.ToString() + "/ ";
+                    }
+                }
+                else
+                {
+                    foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                    {
+                        TypeToString += type.ToString();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// sorts pokemon based on name or number
+        /// </summary>
+        private void OnSortPokemon(object obj)
+        {
+            string sortType = obj.ToString();
+
+            switch (sortType)
+            {
+                case "Name":
+                    Pokemons = new ObservableCollection<Pokemon>(Pokemons.OrderBy(p => p.Name));
+                    break;
+                case "Number":
+                    Pokemons = new ObservableCollection<Pokemon>(Pokemons.OrderBy(p => p.ID));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// search by name
+        /// </summary>
+        private void OnSearchByName(object obj)
+        {
+            _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+            UpdateImageFilePath();
+
+            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText)));
+        }
+
+        /// <summary>
+        /// Reset Pokemon list
+        /// </summary>
+        private void OnResetPokemonList(object obj)
+        {
+            SearchText = "";
+            FilterText = "";
+            ErrorMessage = "";
+
+            _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+            UpdateImageFilePath();
+
+            Pokemons = _pokemon;
+        }
+
+        /// <summary>
+        /// Filter Pokemon list
+        /// </summary>
+        private void OnFilterPokemon(object obj)
+        {
+            switch (FilterText.ToUpper())
+            {
+                case "FIRE":
+                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                    UpdateImageFilePath();
+                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.FIRE)));
+                    break;
+                case "WATER":
+                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                    UpdateImageFilePath();
+                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.WATER)));
+                    break;
+                case "GRASS":
+                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                    UpdateImageFilePath();
+                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.GRASS)));
+                    break;
+                case "PSYCHIC":
+                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                    UpdateImageFilePath();
+                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.PSYCHIC)));
+                    break;
+                default:
+                    ErrorMessage = "*Sorry, that type was not recognized";
+                    break;
+            }
+        }
+
         #endregion
     }
 }
-
