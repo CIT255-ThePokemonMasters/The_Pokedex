@@ -29,22 +29,22 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(OnSortPokemon)); }
         }
 
-        public ICommand SearchByNameCommand 
+        public ICommand SearchByNameCommand
         {
             get { return new RelayCommand(new Action<object>(OnSearchByName)); }
         }
 
-        public ICommand ResetPokemonListCommand 
+        public ICommand ResetPokemonListCommand
         {
             get { return new RelayCommand(new Action<object>(OnResetPokemonList)); }
         }
 
-        public ICommand FilterPokemonCommand 
-        { 
+        public ICommand FilterPokemonCommand
+        {
             get { return new RelayCommand(new Action<object>(OnFilterPokemon)); }
         }
 
-        public ICommand ViewSelectionCommand 
+        public ICommand ViewSelectionCommand
         {
             get { return new RelayCommand(new Action<object>(ViewSelection)); }
         }
@@ -121,41 +121,41 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public string SearchText 
+        public string SearchText
         {
             get { return _searchText; }
-            set 
+            set
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
             }
         }
 
-        public string FilterText 
+        public string FilterText
         {
             get { return _filterText; }
-            set 
+            set
             {
                 _filterText = value;
                 OnPropertyChanged(nameof(FilterText));
             }
         }
 
-        public string ErrorMessage 
+        public string ErrorMessage
         {
-            get {return _errorMessage; }
+            get { return _errorMessage; }
 
-            set 
+            set
             {
                 _errorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
-            } 
+            }
         }
 
-        public ComboBox FilterComboBox 
-        { 
+        public ComboBox FilterComboBox
+        {
             get { return _filterComboBox; }
-            set 
+            set
             {
                 _filterComboBox = value;
                 OnPropertyChanged(nameof(FilterComboBox));
@@ -171,6 +171,9 @@ namespace The_Pokedex.ViewModels
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
 
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
+
+            SearchText = "";
+            FilterText = "";
 
             UpdateImageFilePath();
         }
@@ -294,23 +297,27 @@ namespace The_Pokedex.ViewModels
         /// <summary>
         /// search by name
         /// </summary>
-        private void OnSearchByName(object obj) 
+        private void OnSearchByName(object obj)
         {
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
             Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
 
-            if (Pokemons.Count == 0)
+            if (Pokemons.Count == 0 && SearchText != " ")
             {
                 ErrorMessage = "*Sorry, that Pokemon was not found";
+            }
+            else if (SearchText == " ")
+            {
+                ErrorMessage = " ";
             }
         }
 
         /// <summary>
         /// Reset Pokemon list
         /// </summary>
-        private void OnResetPokemonList(object obj) 
+        private void OnResetPokemonList(object obj)
         {
             SearchText = "";
             FilterText = "";
@@ -325,40 +332,24 @@ namespace The_Pokedex.ViewModels
         /// <summary>
         /// Filter Pokemon list
         /// </summary>
-        private void OnFilterPokemon(object obj) 
+        private void OnFilterPokemon(object obj)
         {
-            switch (FilterText.ToUpper())
+            if (Enum.TryParse<Pokemon.Type>(FilterText.ToUpper(), out Pokemon.Type type))
             {
-                case "FIRE":
-                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                    UpdateImageFilePath();
-                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.FIRE)));
-                    break;
-                case "WATER":
-                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                    UpdateImageFilePath();
-                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.WATER)));
-                    break;
-                case "GRASS":
-                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                    UpdateImageFilePath();
-                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.GRASS)));
-                    break;
-                case "PSYCHIC":
-                    _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                    UpdateImageFilePath();
-                    Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.PSYCHIC)));
-                    break;
-                default:
-                    ErrorMessage = "*Sorry, that type was not recognized";
-                    break;
+                _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                UpdateImageFilePath();
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(type)));
+            }
+            else
+            {
+                ErrorMessage = $"*Sorry, you do not have any {FilterText.ToUpper()} type Pokemon in your Pokedex";
             }
         }
 
         /// <summary>
         /// method for menu bar
         /// </summary>
-        private void ViewSelection(object obj) 
+        private void ViewSelection(object obj)
         {
             string viewString = obj.ToString();
             switch (viewString)
