@@ -31,6 +31,7 @@ namespace The_Pokedex
             ////Christine_MainWindow christine_MainWindow = new Christine_MainWindow();
             ////christine_MainWindow.DataContext = christine_ViewModel;
             ////christine_MainWindow.Show();
+            ///
 
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(pokemonBusiness);
