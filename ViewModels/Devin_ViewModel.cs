@@ -300,6 +300,11 @@ namespace The_Pokedex.ViewModels
             UpdateImageFilePath();
 
             Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+
+            if (Pokemons.Count == 0)
+            {
+                ErrorMessage = "*Sorry, that Pokemon was not found";
+            }
         }
 
         /// <summary>
@@ -350,6 +355,9 @@ namespace The_Pokedex.ViewModels
             }
         }
 
+        /// <summary>
+        /// method for menu bar
+        /// </summary>
         private void ViewSelection(object obj) 
         {
             string viewString = obj.ToString();
