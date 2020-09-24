@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using The_Pokedex.BusinessLayer;
@@ -173,6 +174,8 @@ namespace The_Pokedex.ViewModels
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
 
             UpdateImageFilePath();
+
+            FilterText = "";
         }
 
         #endregion
@@ -346,7 +349,8 @@ namespace The_Pokedex.ViewModels
                         Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.PSYCHIC)));
                         break;
                     default:
-                        ErrorMessage = "*Sorry, that type was not recognized";
+                    MessageBox.Show("You have to enter a type" +
+                        " Fire, Water, Grass, Psychic");                     
                         break;
                 }
             
