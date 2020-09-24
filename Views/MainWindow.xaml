@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="300" 
-        Width="500"
-        Background="DarkRed"
-        >
+        Width="500"    
+        Background="Black">    
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/Pokeball.PNG"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition />
@@ -26,15 +28,15 @@
                 </MenuItem>
                 <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="Black"/>
             </Menu>
-        </DockPanel>
+        </DockPanel>       
 
         <Label 
             Grid.Row="1"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             Content="The Pokedex"
             FontSize="48"
             Foreground="Yellow"
-            FontWeight="ExtraBold"/>
+            FontWeight="ExtraBold"/>                 
     </Grid>
 </Window>

@@ -136,6 +136,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="DataAccessLayer\Images\mew.png" />
+    <Resource Include="DataAccessLayer\Images\Pokeball.PNG" />
     <Content Include="Images\bulbasaur.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -148,6 +149,7 @@
     <Content Include="Images\mewtwo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\Pokeball.PNG" />
     <Content Include="Images\squirtle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
