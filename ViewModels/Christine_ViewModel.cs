@@ -124,14 +124,15 @@ namespace The_Pokedex.ViewModels
 
         public string SearchText
         {
-            get { return _searchText; }
+            get 
+            {return _searchText; }
             set
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
+                              
             }
         }
-
         public string FilterText
         {
             get { return _filterText; }
@@ -302,7 +303,15 @@ namespace The_Pokedex.ViewModels
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
-            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+            //added check to see if name null 
+            if (_searchText == null)
+            {
+                MessageBox.Show("You have to enter a Pokemon name");
+            }
+            else
+            {
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+            }
         }
 
         /// <summary>
