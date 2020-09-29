@@ -57,5 +57,10 @@ namespace The_Pokedex
             //    default:
             //        break;
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

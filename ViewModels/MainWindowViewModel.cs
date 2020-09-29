@@ -32,6 +32,9 @@ namespace The_Pokedex.ViewModels
             Christine_ViewModel christine_ViewModel = new Christine_ViewModel(pokemonBusiness);
             Christine_MainWindow christine_MainWindow = new Christine_MainWindow();
 
+            Bruce_ViewModel bruce_ViewModel = new Bruce_ViewModel(pokemonBusiness);
+            Bruce_MainWindow bruce_MainWindow = new Bruce_MainWindow();
+
             string viewString = obj.ToString();
 
             switch (viewString)
@@ -45,6 +48,8 @@ namespace The_Pokedex.ViewModels
                     christine_MainWindow.Show();
                     break;
                 case "BrucesView":
+                    bruce_MainWindow.DataContext = bruce_ViewModel;
+                    bruce_MainWindow.Show();
                     break;
                 case "Exit":
                     Environment.Exit(0);

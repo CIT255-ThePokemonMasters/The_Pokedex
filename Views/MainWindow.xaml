@@ -26,7 +26,7 @@
                     <MenuItem Header="Christine's View" Command="{Binding ViewSelectionCommand}" CommandParameter="ChristinesView"  Background="Black"/>
                     <MenuItem Header="Bruce's View" Command="{Binding ViewSelectionCommand}" CommandParameter="BrucesView"  Background="Black"/>
                 </MenuItem>
-                <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="Black"/>
+                <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="Black" Click="MenuItem_Click"/>
             </Menu>
         </DockPanel>       
 
