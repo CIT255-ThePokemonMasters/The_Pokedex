@@ -300,12 +300,15 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void OnSearchByName(object obj)
         {
+            bool messageDisplayed = false;
+
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
             //added check to see if name null 
-            if (_searchText == null)
+            if (_searchText == null && !messageDisplayed)
             {
+                messageDisplayed = true;
                 MessageBox.Show("You have to enter a Pokemon name");
             }
             else
@@ -317,18 +320,21 @@ namespace The_Pokedex.ViewModels
         /// <summary>
         /// Reset Pokemon list
         /// </summary>
+        /// 
+
         private void OnResetPokemonList(object obj)
         {
             SearchText = "";
             FilterText = "";
             ErrorMessage = "";
+            _searchText = null;
 
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
             Pokemons = _pokemon;
-        }
-
+       }
+        
         /// <summary>
         /// Filter Pokemon list
         /// </summary>
