@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using The_Pokedex.BusinessLayer;
@@ -16,7 +15,7 @@ using The_Pokedex.Views;
 
 namespace The_Pokedex.ViewModels
 {
-    public class Christine_ViewModel : ObservableObject
+    public class Bruce_ViewModel : ObservableObject
     {
         #region Commands
 
@@ -124,15 +123,14 @@ namespace The_Pokedex.ViewModels
 
         public string SearchText
         {
-            get 
-            {return _searchText; }
+            get { return _searchText; }
             set
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
-                              
             }
         }
+
         public string FilterText
         {
             get { return _filterText; }
@@ -167,16 +165,17 @@ namespace The_Pokedex.ViewModels
 
         #region Constructors
 
-        public Christine_ViewModel(PokemonBusiness pokemonBusiness)
+        public Bruce_ViewModel(PokemonBusiness pokemonBusiness)
         {
             _pokemonBusiness = pokemonBusiness;
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
 
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
 
-            UpdateImageFilePath();
-
+            SearchText = "";
             FilterText = "";
+
+            UpdateImageFilePath();
         }
 
         #endregion
@@ -300,77 +299,56 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void OnSearchByName(object obj)
         {
-            bool messageDisplayed = false;
-
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
-            //added check to see if name null 
-            if (_searchText == null && !messageDisplayed)
+            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+
+            if (Pokemons.Count == 0 && SearchText != " ")
             {
-                messageDisplayed = true;
-                MessageBox.Show("You have to enter a Pokemon name");
+                ErrorMessage = "*Sorry, that Pokemon was not found";
             }
-            else
+            else if (SearchText == " ")
             {
-                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+                ErrorMessage = " ";
             }
         }
 
         /// <summary>
         /// Reset Pokemon list
         /// </summary>
-        /// 
-
         private void OnResetPokemonList(object obj)
         {
             SearchText = "";
             FilterText = "";
             ErrorMessage = "";
-            _searchText = null;
 
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
             Pokemons = _pokemon;
-       }
-        
+        }
+
         /// <summary>
         /// Filter Pokemon list
         /// </summary>
         private void OnFilterPokemon(object obj)
-        {         
-            
-                switch (FilterText.ToUpper())
-                {
-                    case "FIRE":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.FIRE)));
-                        break;
-                    case "WATER":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.WATER)));
-                        break;
-                    case "GRASS":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.GRASS)));
-                        break;
-                    case "PSYCHIC":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.PSYCHIC)));
-                        break;
-                    default:
-                    MessageBox.Show("You have to enter a type" +
-                        " Fire, Water, Grass, Psychic");                     
-                        break;
-                }
-            
+        {
+            if (Enum.TryParse<Pokemon.Type>(FilterText.ToUpper(), out Pokemon.Type type))
+            {
+                _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                UpdateImageFilePath();
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(type)));
+            }
+            else
+            {
+                ErrorMessage = $"*Sorry, you do not have any {FilterText.ToUpper()} type Pokemon in your Pokedex";
+            }
         }
 
+        /// <summary>
+        /// method for menu bar
+        /// </summary>
         private void ViewSelection(object obj)
         {
             string viewString = obj.ToString();
