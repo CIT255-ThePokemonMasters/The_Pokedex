@@ -9,6 +9,7 @@ namespace The_Pokedex.DataAccessLayer
     public enum DataType
     {
         XML,
-        JSON
+        JSON,
+        SQL
     }
 }

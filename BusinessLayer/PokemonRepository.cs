@@ -15,15 +15,16 @@ namespace The_Pokedex.BusinessLayer
 
         public PokemonRepository()
         {
-            _dataService = SetDataService();
+            DataConfig dataConfig = new DataConfig();
+            _dataService = dataConfig.SetDataService();
 
             try
             {
-                _pokemon = _dataService.ReadAll() as List<Pokemon>;
+                _pokemon = _dataService.GetAll() as List<Pokemon>;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                string message = e.Message;
                 throw;
             }
         }
@@ -65,12 +66,13 @@ namespace The_Pokedex.BusinessLayer
         {
             try
             {
-                _pokemon.Add(pokemon);
-                _dataService.WriteAll(_pokemon);
+                _dataService.Add(pokemon);
+                //_pokemon.Add(pokemon);
+                //_dataService.WriteAll(_pokemon);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                string message = e.Message;
                 throw;
             }
         }
@@ -82,13 +84,14 @@ namespace The_Pokedex.BusinessLayer
         {
             try
             {
-                _pokemon.Remove(_pokemon.FirstOrDefault(p => p.ID == id));
+                _dataService.Delete(id);
+                //_pokemon.Remove(_pokemon.FirstOrDefault(p => p.ID == id));
 
-                _dataService.WriteAll(_pokemon);
+                //_dataService.WriteAll(_pokemon);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                string message = e.Message;
                 throw;
             }
         }
@@ -100,13 +103,15 @@ namespace The_Pokedex.BusinessLayer
         {
             try
             {
-                _pokemon.Remove(_pokemon.FirstOrDefault(p => p.ID == pokemon.ID));
-                _pokemon.Add(pokemon);
-                _dataService.WriteAll(_pokemon);
-            }
-            catch (Exception)
-            {
+                _dataService.Update(pokemon);
 
+                //_pokemon.Remove(_pokemon.FirstOrDefault(p => p.ID == pokemon.ID));
+                //_pokemon.Add(pokemon);
+                //_dataService.WriteAll(_pokemon);
+            }
+            catch (Exception e)
+            {
+                string message = e.Message;
                 throw;
             }
         }

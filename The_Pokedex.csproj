@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -83,6 +98,9 @@
     <Compile Include="DataAccessLayer\DataType.cs" />
     <Compile Include="DataAccessLayer\IDataService.cs" />
     <Compile Include="DataAccessLayer\SeedData.cs" />
+    <Compile Include="DataAccessLayer\SQL\DataServiceSql.cs" />
+    <Compile Include="DataAccessLayer\SQL\SqlDataSettings.cs" />
+    <Compile Include="DataAccessLayer\SQL\SqlUtilities.cs" />
     <Compile Include="Models\FileIoMessage.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Models\PokemonOperation.cs" />
@@ -137,6 +155,14 @@
     </Resource>
     <Resource Include="DataAccessLayer\Images\mew.png" />
     <Resource Include="DataAccessLayer\Images\Pokeball.PNG" />
+    <Resource Include="DataAccessLayer\Images\diglett.PNG" />
+    <Content Include="DataAccessLayer\SQL\Pokemon.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataAccessLayer\SQL\Pokemon_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>Pokemon.mdf</DependentUpon>
+    </Content>
     <Content Include="Images\bulbasaur.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -167,6 +193,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataAccessLayer\Xml\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

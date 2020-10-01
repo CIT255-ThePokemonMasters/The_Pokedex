@@ -62,6 +62,31 @@ namespace The_Pokedex.DataAccessLayer
             }
         }
 
+        public IEnumerable<Pokemon> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Pokemon GetByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(Pokemon pokemon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Pokemon pokemon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public DataServiceXml()
         {
             _dataFilePath = DataConfig.DataPathXml;

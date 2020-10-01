@@ -157,12 +157,17 @@
                         Grid.Row="1"
                         Orientation="Horizontal"
                         Width="450">
+                        <Label 
+                            Margin="50,0,0,0"
+                            Content="Sort By:"
+                            Foreground="White"
+                            VerticalAlignment="Center"/>
                         <Button 
-                            Margin="120,0,15,0"
+                            Margin="10,0,15,0"
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Center"
                             Content="Name"
-                            FontSize="14"
+                            FontSize="12"
                             FontWeight="ExtraBold"
                             Width="100"
                             Height="20"
@@ -174,7 +179,7 @@
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Center"
                             Content="Number"
-                            FontSize="14"
+                            FontSize="12"
                             FontWeight="ExtraBold"
                             Width="100"
                             Height="20"
@@ -222,7 +227,7 @@
                                 Grid.Column="1">
                                 <Label 
                                     Margin="0,0,0,10"
-                                    Content="Filter By: "
+                                    Content="Filter By Type: "
                                     Foreground="White"/>
                                 <TextBox 
                                     VerticalContentAlignment="Center"
@@ -477,7 +482,8 @@
                             <Button 
                                 Grid.Column="2"
                                 Content="Delete"
-                                Style="{StaticResource AddEditDeleteButtonStyle}"/>
+                                Style="{StaticResource AddEditDeleteButtonStyle}"
+                                Command="{Binding DeleteCommand}"/>
                         </Grid>
                     </StackPanel>
                 </Grid>

@@ -81,6 +81,20 @@ namespace The_Pokedex.DataAccessLayer
                     Description = "When viewed through a microscope, this Pokémon’s short, fine, delicate hair can be seen.",
                     Category = "New Species",
                     ImageFileName = "mew.png"
+                },
+
+                      new Pokemon
+                {
+                    ID = 50,
+                    Name = "Diglett",
+                    PokemonType = new List<Pokemon.Type>(){Pokemon.Type.GROUND},
+                    Weakness = new List<Pokemon.Type>(){Pokemon.Type.WATER, Pokemon.Type.GRASS, Pokemon.Type.ICE},
+                    Abilities = "Sand Veil",
+                    Weight = 1.8,
+                    Height = 0.08,
+                    Description = "If a Diglett digs through a field, it leaves the soil perfectly tilled and ideal for planting crops.",
+                    Category = "Mole",
+                    ImageFileName = "diglett.png"
                 }
             };
         }

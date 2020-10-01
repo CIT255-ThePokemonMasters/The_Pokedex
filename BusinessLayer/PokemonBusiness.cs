@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The_Pokedex.DataAccessLayer;
+using The_Pokedex.DataAccessLayer.SQL;
 using The_Pokedex.Models;
 
 namespace The_Pokedex.BusinessLayer
@@ -19,7 +20,7 @@ namespace The_Pokedex.BusinessLayer
         #region Constructor
         public PokemonBusiness()
         {
-
+            SqlUtilities.WriteSeedDataToDatabase();
         }
 
         #endregion
@@ -98,7 +99,9 @@ namespace The_Pokedex.BusinessLayer
         {
             //return GetAllPokemon() as List<Pokemon>;
 
-            return SeedData.GetAllPokemon();
+            //return SeedData.GetAllPokemon();
+
+            return GetAllPokemon();
         }
 
         /// <summary>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using The_Pokedex.BusinessLayer;
@@ -49,6 +50,11 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(ViewSelection)); }
         }
 
+        public ICommand DeleteCommand 
+        {
+            get { return new RelayCommand(new Action<object>(DeletePokemon)); }
+        }
+
         #endregion
 
         #region Fields
@@ -63,6 +69,7 @@ namespace The_Pokedex.ViewModels
         private string _searchText;
         private string _filterText;
         private string _errorMessage;
+        private string _operationFeedback;
 
         private ComboBox _filterComboBox;
         #endregion
@@ -149,6 +156,16 @@ namespace The_Pokedex.ViewModels
             {
                 _errorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public string Operationfeedback 
+        {
+            get { return _operationFeedback; }
+            set 
+            {
+                _operationFeedback = value;
+                OnPropertyChanged(nameof(Operationfeedback));
             }
         }
 
@@ -343,6 +360,31 @@ namespace The_Pokedex.ViewModels
             else
             {
                 ErrorMessage = $"*Sorry, you do not have any {FilterText.ToUpper()} type Pokemon in your Pokedex";
+            }
+        }
+
+        public void DeletePokemon(object obj) 
+        {
+            if (SelectedPokemon != null)
+            {
+                MessageBoxResult results = MessageBox.Show($"Are you sure you want to remove {SelectedPokemon.Name} from your Pokedex?", "Delete Pokemon", MessageBoxButton.YesNo);
+
+                switch (results)
+                {
+                    case MessageBoxResult.Yes:
+                        _pokemonBusiness.DeletePokemon(SelectedPokemon.ID);
+
+                        Pokemons.Remove(SelectedPokemon);
+                        Operationfeedback = $"{SelectedPokemon.Name} has been removed.";
+
+                        if (Pokemons.Any()) SelectedPokemon = Pokemons[0];
+                        break;
+                    case MessageBoxResult.No:
+                        Operationfeedback = "Deletion canceled.";
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

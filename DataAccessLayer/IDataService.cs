@@ -11,6 +11,16 @@ namespace The_Pokedex.DataAccessLayer
     {
         IEnumerable<Pokemon> ReadAll();
 
+        IEnumerable<Pokemon> GetAll();
+
         void WriteAll(IEnumerable<Pokemon> pokemon);
+
+        Pokemon GetByID(int id);
+
+        void Add(Pokemon pokemon);
+
+        void Update(Pokemon pokemon);
+
+        void Delete(int id);
     }
 }
