@@ -68,18 +68,18 @@ namespace The_Pokedex.DataAccessLayer.SQL
         {
             string connectionString = SqlDataSettings.ConnectionString;
             bool operationSuccessful = true;
-            string typeString = "";
-            string weaknessString = "";
+            string typeString = null;
+            string weaknessString = null;
 
             foreach (var pokemon in SeedData.GetAllPokemon())
             {
                 foreach (var type in pokemon.PokemonType)
                 {
-                    typeString += $"{pokemon.PokemonType.ToString()}, ";
+                    typeString += $"{pokemon.PokemonType.ToString()},";
                 }
                 foreach (var type in pokemon.Weakness)
                 {
-                    weaknessString += $"{pokemon.Weakness.ToString()}, ";
+                    weaknessString += $"{pokemon.Weakness.ToString()},";
                 }
                 var sb = new StringBuilder("INSERT INTO Pokemon");
                 sb.Append(" ([Id], [Name], [Type], [Weakness], [Abilities], [Weight], [Height], [Description], [Category], [ImageFileName])");
@@ -113,6 +113,9 @@ namespace The_Pokedex.DataAccessLayer.SQL
                         throw;
                     }
                 }
+
+                typeString = null;
+                weaknessString = null;
             }
 
             return operationSuccessful;
