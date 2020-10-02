@@ -68,26 +68,29 @@ namespace The_Pokedex.DataAccessLayer.SQL
         {
             string connectionString = SqlDataSettings.ConnectionString;
             bool operationSuccessful = true;
-            string typeString = null;
-            string weaknessString = null;
+            List<Pokemon.Type> newTypes = new List<Pokemon.Type>();
+            List<Pokemon.Type> newWeakness = new List<Pokemon.Type>();
 
             foreach (var pokemon in SeedData.GetAllPokemon())
             {
-                foreach (var type in pokemon.PokemonType)
+                newTypes.Clear();
+                newWeakness.Clear();
+
+                foreach (Pokemon.Type type in pokemon.PokemonType)
                 {
-                    typeString += $"{pokemon.PokemonType.ToString()},";
+                    newTypes.Add(type);
                 }
-                foreach (var type in pokemon.Weakness)
+                foreach (Pokemon.Type type in pokemon.Weakness)
                 {
-                    weaknessString += $"{pokemon.Weakness.ToString()},";
+                    newWeakness.Add(type);
                 }
                 var sb = new StringBuilder("INSERT INTO Pokemon");
                 sb.Append(" ([Id], [Name], [Type], [Weakness], [Abilities], [Weight], [Height], [Description], [Category], [ImageFileName])");
                 sb.Append(" Values (");
                 sb.Append("'").Append(pokemon.ID).Append("',");
                 sb.Append("'").Append(pokemon.Name).Append("',");
-                sb.Append("'").Append(typeString).Append("',");
-                sb.Append("'").Append(weaknessString).Append("',");
+                sb.Append("'").Append(string.Join(",", newTypes.Select(s => s.ToString()).ToArray())).Append("',");
+                sb.Append("'").Append(string.Join(",", newWeakness.Select(s => s.ToString()).ToArray())).Append("',");
                 sb.Append("'").Append(pokemon.Abilities).Append("',");
                 sb.Append("'").Append(pokemon.Weight).Append("',");
                 sb.Append("'").Append(pokemon.Height).Append("',");
@@ -113,9 +116,6 @@ namespace The_Pokedex.DataAccessLayer.SQL
                         throw;
                     }
                 }
-
-                typeString = null;
-                weaknessString = null;
             }
 
             return operationSuccessful;
