@@ -41,8 +41,8 @@ namespace The_Pokedex.DataAccessLayer.SQL
                                      {
                                          ID = Convert.ToInt32(p["Id"]),
                                          Name = Convert.ToString(p["Name"]),
-                                         PokemonType = ConvertToEnum(p["Type"]),
-                                         Weakness = ConvertToEnum(p["Weakness"]),
+                                         PokemonType = ConvertTypeToEnum(p["Type"]),
+                                         Weakness = ConvertWeaknessToEnum(p["Weakness"]),
                                          Abilities = Convert.ToString(p["Abilities"]),
                                          Height = Convert.ToDouble(p["Height"]),
                                          Weight = Convert.ToDouble(p["Weight"]),
@@ -57,7 +57,7 @@ namespace The_Pokedex.DataAccessLayer.SQL
         /// <summary>
         /// Converts Type/Weakness from object into a list<Type>
         /// </summary>
-        private List<Pokemon.Type> ConvertToEnum(object type)
+        private List<Pokemon.Type> ConvertTypeToEnum(object type)
         {
             List<Pokemon.Type> pokemonTypes = new List<Pokemon.Type>();
             string phrase = Convert.ToString(type);
@@ -71,6 +71,25 @@ namespace The_Pokedex.DataAccessLayer.SQL
             }
 
             return pokemonTypes;
+        }
+
+        /// <summary>
+        /// Converts Type/Weakness from object into a list<Type>
+        /// </summary>
+        private List<Pokemon.Type> ConvertWeaknessToEnum(object type)
+        {
+            List<Pokemon.Type> weakness = new List<Pokemon.Type>();
+            string phrase = Convert.ToString(type);
+            string[] stringTypes = phrase.Split(',');
+            Pokemon.Type typeParsed;
+
+            foreach (string item in stringTypes)
+            {
+                Enum.TryParse(item, out typeParsed);
+                weakness.Add(typeParsed);
+            }
+
+            return weakness;
         }
 
         /// <summary>

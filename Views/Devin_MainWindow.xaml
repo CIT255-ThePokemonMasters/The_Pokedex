@@ -8,7 +8,7 @@
         Title="Devin_MainWindow" 
         Height="520" 
         Width="1000"
-        Background="DarkRed">
+        Background="Black">
     <Window.Resources>
         <Style x:Key="BodyTextStyle" TargetType="Label">
             <Setter Property="Foreground" Value="Black"/>
@@ -72,7 +72,7 @@
     <!--<Window.DataContext>
         <local:Devin_MainWindow/>
     </Window.DataContext>-->
-    
+
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -90,14 +90,14 @@
                 Height="20"
                 Width="495"
                 >
-                <Menu DockPanel.Dock="Top" Background="DarkRed" Foreground="White">
-                    <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="DarkRed" Margin="460,0,0,0"/>
+                <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
+                    <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="Black" Margin="460,0,0,0"/>
                 </Menu>
             </DockPanel>
             <Rectangle 
                 Grid.Column="0"
                 Grid.Row="0"
-                Fill="DarkRed"/>
+                Fill="Black"/>
 
             <!-- Left side of display -->
             <Border
@@ -303,8 +303,10 @@
                     <!-- Info Text Block -->
                     <StackPanel Grid.Row="0">
                         <Grid
-                            Background="Black"
                             Width="495">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="C:\NMC Classes\CIT255\The_Pokedex\Images\gangar.jpg"></ImageBrush>
+                            </Grid.Background>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"/>
                                 <RowDefinition Height="50"/>
@@ -474,7 +476,9 @@
                             <Button 
                                 Grid.Column="0"
                                 Content="Add"
-                                Style="{StaticResource AddEditDeleteButtonStyle}"/>
+                                Style="{StaticResource AddEditDeleteButtonStyle}"
+                                Command="{Binding ButtonAddCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"/>
                             <Button 
                                 Grid.Column="1"
                                 Content="Edit"

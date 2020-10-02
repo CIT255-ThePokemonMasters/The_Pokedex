@@ -55,6 +55,11 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(DeletePokemon)); }
         }
 
+        public ICommand ButtonAddCommand 
+        {
+            get { return new RelayCommand(new Action<object>(AddPokemon)); }
+        }
+
         #endregion
 
         #region Fields
@@ -363,6 +368,9 @@ namespace The_Pokedex.ViewModels
             }
         }
 
+        /// <summary>
+        /// Deletes a pokemon
+        /// </summary>
         public void DeletePokemon(object obj) 
         {
             if (SelectedPokemon != null)
@@ -385,6 +393,23 @@ namespace The_Pokedex.ViewModels
                     default:
                         break;
                 }
+            }
+        }
+
+        public void AddPokemon(object obj) 
+        {
+            PokemonOperation pokemonOperation = new PokemonOperation()
+            {
+                Status = PokemonOperation.OperationStatus.CANCEL,
+                pokemon = new Pokemon()
+            };
+
+            Window devin_addWindow = new Devin_AddWindow(pokemonOperation);
+            devin_addWindow.ShowDialog();
+
+            if (pokemonOperation.Status != PokemonOperation.OperationStatus.CANCEL)
+            {
+                Pokemons.Add(pokemonOperation.pokemon);
             }
         }
 

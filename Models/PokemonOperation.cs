@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace The_Pokedex.Models
 {
-    class PokemonOperation
+    public class PokemonOperation
     {
         public enum OperationStatus { OKAY, CANCEL }
         public OperationStatus Status { get; set; }

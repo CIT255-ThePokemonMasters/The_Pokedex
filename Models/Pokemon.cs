@@ -13,6 +13,7 @@ namespace The_Pokedex.Models
 
         public enum Type
         {
+            NONE,
             NORMAL,
             FIGHTING,
             FIRE,
