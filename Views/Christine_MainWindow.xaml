@@ -217,12 +217,13 @@
                         </Grid.ColumnDefinitions>
                         <Button
                                 Content="Delete"
-                                Style="{StaticResource ButtonStyle}" Margin="539.5,197,9,-196" Grid.Column="1" 
-                                />
+                                Style="{StaticResource ButtonStyle}" Margin="539.5,197,9,-196" Grid.Column="1"                                 
+                                Command="{Binding DeleteCommand}"/>
                         <Button
                                 Content="Add"
                                 Style="{StaticResource ButtonStyle}" Margin="32,-267,38,269"
-                                />
+                                Command="{Binding ButtonAddCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"/>
                         <Button
                                 Content="Name"
                                 Command="{Binding Path = SortPokemonCommand}"
@@ -239,6 +240,11 @@
                                 Content="Reset"
                                 Command="{Binding Path=ResetPokemonListCommand }"
                                 Style="{StaticResource ButtonStyle}" Margin="430.5,197,118,-196" Grid.Column="1"
+                                />
+                        <Button
+                                Content="Edit"
+                                Command="{Binding Path=ResetPokemonListCommand }"
+                                Style="{StaticResource ButtonStyle}" Margin="316,198,232,-195" Grid.Column="1"
                                 />
                         <Button
                                 Content="Exit"
