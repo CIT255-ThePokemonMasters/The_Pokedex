@@ -39,10 +39,10 @@ namespace The_Pokedex.ViewModels
 
             switch (viewString)
             {
-                //case "DevinsView":
-                   // devin_MainWindow.DataContext = devin_ViewModel;
-                    //devin_MainWindow.Show();
-                  //  break;
+                case "DevinsView":
+                    devin_MainWindow.DataContext = devin_ViewModel;
+                    devin_MainWindow.Show();
+                    break;
                 case "ChristinesView":
                     christine_MainWindow.DataContext = christine_ViewModel;
                     christine_MainWindow.Show();

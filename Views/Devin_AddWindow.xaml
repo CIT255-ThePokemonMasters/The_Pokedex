@@ -146,10 +146,18 @@
                         <Label 
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Type:"/>
-                        <TextBox
-                            Margin="28,0,0,0"
-                            Style="{StaticResource EntryBlockStyle}"
-                            Text="{Binding UserPokemon.Type}"/>
+                        <CheckBox
+                            Content="Fire"
+                            Foreground="White"
+                            IsChecked="{Binding FireIsChecked}"/>
+                        <CheckBox
+                            Content="Water"
+                            Foreground="White"
+                            IsChecked="{Binding WaterIsChecked}"/>
+                        <CheckBox
+                            Content="Grass"
+                            Foreground="White"
+                            IsChecked="{Binding GrassIsChecked}"/>
                     </StackPanel>
                     <StackPanel
                         Grid.Row="3"
@@ -208,9 +216,18 @@
                         <Label 
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Weakness:"/>
-                        <TextBox 
-                            Style="{StaticResource EntryBlockStyle}"
-                            Text="{Binding UserPokemon.Weakness}"/>
+                        <CheckBox
+                            Content="Fire"
+                            Foreground="White"
+                            IsChecked="{Binding WeaknessToFireIsChecked}"/>
+                        <CheckBox
+                            Content="Water"
+                            Foreground="White"
+                            IsChecked="{Binding WeaknessToWaterIsChecked}"/>
+                        <CheckBox
+                            Content="Grass"
+                            Foreground="White"
+                            IsChecked="{Binding WeaknessToGrassIsChecked}"/>
                     </StackPanel>
                     <StackPanel
                         Grid.Row="3"

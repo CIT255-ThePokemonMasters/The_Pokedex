@@ -84,16 +84,16 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <DockPanel
+            <Button
                 Grid.Column="1"
                 Grid.Row="0"
-                Height="20"
-                Width="495"
-                >
-                <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
-                    <MenuItem Header="Exit" Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"  Background="Black" Margin="460,0,0,0"/>
-                </Menu>
-            </DockPanel>
+                Content="Exit"
+                Width="30"
+                HorizontalAlignment="Right"
+                Foreground="White"
+                Background="Black"
+                Command="{Binding ExitCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
             <Rectangle 
                 Grid.Column="0"
                 Grid.Row="0"

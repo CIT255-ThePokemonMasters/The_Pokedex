@@ -45,17 +45,17 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(OnFilterPokemon)); }
         }
 
-        public ICommand ViewSelectionCommand
+        public ICommand ExitCommand
         {
-            get { return new RelayCommand(new Action<object>(ViewSelection)); }
+            get { return new RelayCommand(new Action<object>(Exit)); }
         }
 
-        public ICommand DeleteCommand 
+        public ICommand DeleteCommand
         {
             get { return new RelayCommand(new Action<object>(DeletePokemon)); }
         }
 
-        public ICommand ButtonAddCommand 
+        public ICommand ButtonAddCommand
         {
             get { return new RelayCommand(new Action<object>(AddPokemon)); }
         }
@@ -164,10 +164,10 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public string Operationfeedback 
+        public string Operationfeedback
         {
             get { return _operationFeedback; }
-            set 
+            set
             {
                 _operationFeedback = value;
                 OnPropertyChanged(nameof(Operationfeedback));
@@ -251,22 +251,32 @@ namespace The_Pokedex.ViewModels
         {
             TypeToString = "";
 
-            if (SelectedPokemon != null)
+            if (SelectedPokemon != null && SelectedPokemon.PokemonType != null)
             {
-                if (SelectedPokemon.PokemonType.Count > 1)
+                if (SelectedPokemon.PokemonType.Count > 1 && SelectedPokemon.PokemonType != null)
                 {
                     foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
                     {
                         TypeToString += type.ToString() + "/ ";
                     }
                 }
-                else
+                else if (SelectedPokemon.PokemonType.Count == 1 && SelectedPokemon.PokemonType != null)
                 {
                     foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
                     {
                         TypeToString += type.ToString();
                     }
                 }
+                else
+                {
+                    SelectedPokemon.PokemonType.Add(Pokemon.Type.NONE);
+                    TypeToString = SelectedPokemon.PokemonType.ToString();
+                }
+            }
+            else
+            {
+                SelectedPokemon.PokemonType.Add(Pokemon.Type.NONE);
+                TypeToString = SelectedPokemon.PokemonType.ToString();
             }
         }
 
@@ -277,22 +287,32 @@ namespace The_Pokedex.ViewModels
         {
             WeaknessToString = "";
 
-            if (SelectedPokemon != null)
+            if (SelectedPokemon != null && SelectedPokemon.PokemonType != null)
             {
-                if (SelectedPokemon.Weakness.Count > 1)
+                if (SelectedPokemon.Weakness.Count > 1 && SelectedPokemon.Weakness != null)
                 {
                     foreach (Pokemon.Type weakness in SelectedPokemon.Weakness)
                     {
                         WeaknessToString += weakness.ToString() + "/ ";
                     }
                 }
-                else
+                else if (SelectedPokemon.Weakness.Count == 1 && SelectedPokemon.Weakness != null)
                 {
-                    foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                    foreach (Pokemon.Type type in SelectedPokemon.Weakness)
                     {
-                        TypeToString += type.ToString();
+                        WeaknessToString += type.ToString();
                     }
                 }
+                else
+                {
+                    SelectedPokemon.Weakness.Add(Pokemon.Type.NONE);
+                    WeaknessToString = "NONE";
+                }
+            }
+            else
+            {
+                SelectedPokemon.PokemonType.Add(Pokemon.Type.NONE);
+                WeaknessToString = SelectedPokemon.Weakness.ToString();
             }
         }
 
@@ -371,7 +391,7 @@ namespace The_Pokedex.ViewModels
         /// <summary>
         /// Deletes a pokemon
         /// </summary>
-        public void DeletePokemon(object obj) 
+        public void DeletePokemon(object obj)
         {
             if (SelectedPokemon != null)
             {
@@ -396,7 +416,7 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public void AddPokemon(object obj) 
+        public void AddPokemon(object obj)
         {
             PokemonOperation pokemonOperation = new PokemonOperation()
             {
@@ -416,16 +436,11 @@ namespace The_Pokedex.ViewModels
         /// <summary>
         /// method for menu bar
         /// </summary>
-        private void ViewSelection(object obj)
+        private void Exit(object obj)
         {
-            string viewString = obj.ToString();
-            switch (viewString)
+            if (obj is System.Windows.Window)
             {
-                case "Exit":
-                    Environment.Exit(0);
-                    break;
-                default:
-                    break;
+                (obj as System.Windows.Window).Close();
             }
         }
 
