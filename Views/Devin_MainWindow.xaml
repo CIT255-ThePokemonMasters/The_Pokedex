@@ -305,7 +305,7 @@
                         <Grid
                             Width="495">
                             <Grid.Background>
-                                <ImageBrush ImageSource="C:\NMC Classes\CIT255\The_Pokedex\Images\gangar.jpg"></ImageBrush>
+                                <ImageBrush ImageSource="/Images\gangar.jpg"></ImageBrush>
                             </Grid.Background>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"/>

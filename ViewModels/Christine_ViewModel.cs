@@ -50,6 +50,16 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(ViewSelection)); }
         }
 
+        public ICommand DeleteCommand
+        {
+            get { return new RelayCommand(new Action<object>(DeletePokemon)); }
+        }
+
+        public ICommand ButtonAddCommand
+        {
+            get { return new RelayCommand(new Action<object>(AddPokemon)); }
+        }
+
         #endregion
 
         #region Fields
@@ -64,6 +74,7 @@ namespace The_Pokedex.ViewModels
         private string _searchText;
         private string _filterText;
         private string _errorMessage;
+        private string _operationFeedback;
 
         private ComboBox _filterComboBox;
         #endregion
@@ -124,15 +135,14 @@ namespace The_Pokedex.ViewModels
 
         public string SearchText
         {
-            get 
-            {return _searchText; }
+            get { return _searchText; }
             set
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
-                              
             }
         }
+
         public string FilterText
         {
             get { return _filterText; }
@@ -151,6 +161,16 @@ namespace The_Pokedex.ViewModels
             {
                 _errorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public string Operationfeedback
+        {
+            get { return _operationFeedback; }
+            set
+            {
+                _operationFeedback = value;
+                OnPropertyChanged(nameof(Operationfeedback));
             }
         }
 
@@ -174,9 +194,10 @@ namespace The_Pokedex.ViewModels
 
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
 
-            UpdateImageFilePath();
-
+            SearchText = "";
             FilterText = "";
+
+            UpdateImageFilePath();
         }
 
         #endregion
@@ -300,77 +321,101 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void OnSearchByName(object obj)
         {
-            bool messageDisplayed = false;
-
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
-            //added check to see if name null 
-            if (_searchText == null && !messageDisplayed)
+            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+
+            if (Pokemons.Count == 0 && SearchText != " ")
             {
-                messageDisplayed = true;
-                MessageBox.Show("You have to enter a Pokemon name");
+                ErrorMessage = "*Sorry, that Pokemon was not found";
             }
-            else
+            else if (SearchText == " ")
             {
-                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+                ErrorMessage = " ";
             }
         }
 
         /// <summary>
         /// Reset Pokemon list
         /// </summary>
-        /// 
-
         private void OnResetPokemonList(object obj)
         {
             SearchText = "";
             FilterText = "";
             ErrorMessage = "";
-            _searchText = null;
 
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
             Pokemons = _pokemon;
-       }
-        
+        }
+
         /// <summary>
         /// Filter Pokemon list
         /// </summary>
         private void OnFilterPokemon(object obj)
-        {         
-            
-                switch (FilterText.ToUpper())
-                {
-                    case "FIRE":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.FIRE)));
-                        break;
-                    case "WATER":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.WATER)));
-                        break;
-                    case "GRASS":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.GRASS)));
-                        break;
-                    case "PSYCHIC":
-                        _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                        UpdateImageFilePath();
-                        Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(Pokemon.Type.PSYCHIC)));
-                        break;
-                    default:
-                    MessageBox.Show("You have to enter a type" +
-                        " Fire, Water, Grass, Psychic");                     
-                        break;
-                }
-            
+        {
+            if (Enum.TryParse<Pokemon.Type>(FilterText.ToUpper(), out Pokemon.Type type))
+            {
+                _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                UpdateImageFilePath();
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(type)));
+            }
+            else
+            {
+                ErrorMessage = $"*Sorry, you do not have any {FilterText.ToUpper()} type Pokemon in your Pokedex";
+            }
         }
 
+        /// <summary>
+        /// Deletes a pokemon
+        /// </summary>
+        public void DeletePokemon(object obj)
+        {
+            if (SelectedPokemon != null)
+            {
+                MessageBoxResult results = MessageBox.Show($"Are you sure you want to remove {SelectedPokemon.Name} from your Pokedex?", "Delete Pokemon", MessageBoxButton.YesNo);
+
+                switch (results)
+                {
+                    case MessageBoxResult.Yes:
+                        _pokemonBusiness.DeletePokemon(SelectedPokemon.ID);
+
+                        Pokemons.Remove(SelectedPokemon);
+                        Operationfeedback = $"{SelectedPokemon.Name} has been removed.";
+
+                        if (Pokemons.Any()) SelectedPokemon = Pokemons[0];
+                        break;
+                    case MessageBoxResult.No:
+                        Operationfeedback = "Deletion canceled.";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public void AddPokemon(object obj)
+        {
+            PokemonOperation pokemonOperation = new PokemonOperation()
+            {
+                Status = PokemonOperation.OperationStatus.CANCEL,
+                pokemon = new Pokemon()
+            };
+
+            Window devin_addWindow = new Devin_AddWindow(pokemonOperation);
+            devin_addWindow.ShowDialog();
+
+            if (pokemonOperation.Status != PokemonOperation.OperationStatus.CANCEL)
+            {
+                Pokemons.Add(pokemonOperation.pokemon);
+            }
+        }
+
+        /// <summary>
+        /// method for menu bar
+        /// </summary>
         private void ViewSelection(object obj)
         {
             string viewString = obj.ToString();

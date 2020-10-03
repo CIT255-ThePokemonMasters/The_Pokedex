@@ -14,6 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -112,6 +112,11 @@
     <Compile Include="Models\FileIoMessage.cs" />
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Models\PokemonOperation.cs" />
+    <Compile Include="PokemonDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PokemonDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="UtilityClass\ObservableObject.cs" />
     <Compile Include="UtilityClass\RelayCommand.cs" />
     <Compile Include="ViewModels\Bruce_ViewModel.cs" />
@@ -150,6 +155,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\gangar.jpg" />
     <Resource Include="Images\types.jpg" />
     <Resource Include="Images\starters.jpg" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -190,7 +196,6 @@
     <Content Include="Images\d_pad.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\gangar.jpg" />
     <Content Include="Images\mewtwo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -203,6 +208,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <None Include="PokemonDataSet.xsc">
+      <DependentUpon>PokemonDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="PokemonDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PokemonDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PokemonDataSet.xss">
+      <DependentUpon>PokemonDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

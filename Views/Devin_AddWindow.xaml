@@ -89,7 +89,9 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="C:\NMC Classes\CIT255\The_Pokedex\Images\mew_mewtwo.jpg"></ImageBrush>
+            <ImageBrush ImageSource="/Images/mew_mewtwo.jpg"></ImageBrush>
+            <!-- You need to put in the main file for images like "/Images/Pokeball.PNG"/>-->
+            <!--I updated the pathing- you have it set locally for your computer-->
         </Grid.Background>
         <StackPanel>
             <Grid>

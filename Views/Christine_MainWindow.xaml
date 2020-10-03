@@ -218,7 +218,7 @@
                         <Button
                                 Content="Delete"
                                 Style="{StaticResource ButtonStyle}" Margin="539.5,197,9,-196" Grid.Column="1"                                 
-                                Command="{Binding DeleteCommand}"/>
+                               Command="{Binding DeleteCommand}"/>
                         <Button
                                 Content="Add"
                                 Style="{StaticResource ButtonStyle}" Margin="32,-267,38,269"
