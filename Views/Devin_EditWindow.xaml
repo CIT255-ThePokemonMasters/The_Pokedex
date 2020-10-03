@@ -1,0 +1,283 @@
+﻿<Window x:Class="The_Pokedex.Views.Devin_EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:The_Pokedex.Views"
+        mc:Ignorable="d"
+        Title="Devin_EditWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="BodyTextStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Arial Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="TitleTextStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Elephant"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="InfoBoxStyle" TargetType="TextBlock">
+            <Setter Property="Background" Value="Green"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Arial Black"/>
+        </Style>
+        <Style x:Key="LargeInfoBoxStyle" TargetType="TextBlock">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Arial Black"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="BlueSquareButton" TargetType="Rectangle">
+            <Setter Property="Fill" Value="DarkBlue"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
+        <Style x:Key="BlackSquareButton" TargetType="Rectangle">
+            <Setter Property="Fill" Value="Black"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+        </Style>
+        <Style x:Key="AddEditDeleteButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Background" Value="DarkOrange" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="FontFamily" Value="Arial Black" />
+        </Style>
+        <Style x:Key="BlackCircle" TargetType="Ellipse">
+            <Setter Property="Fill" Value="Black"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+        </Style>
+        <Style x:Key="RoundedBorderStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="1"/>
+        </Style>
+        <Style x:Key="StandardBorder" TargetType="Border">
+            <Setter Property="BorderThickness" Value="4"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+        <Style x:Key="AddEditTitleStyle" TargetType="Label">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="MediumPurple"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="ExtraBold" />
+        </Style>
+        <Style x:Key="WhiteLabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+        <Style x:Key="EntryBlockStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/mew_mewtwo.jpg"></ImageBrush>
+            <!-- You need to put in the main file for images like "/Images/Pokeball.PNG"/>-->
+            <!--I updated the pathing- you have it set locally for your computer-->
+        </Grid.Background>
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="300"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label 
+                    Grid.Row="0"
+                    Content="Edit A Pokemon"
+                    FontSize="30"
+                    Style="{StaticResource AddEditTitleStyle}"/>
+                <Grid
+                    Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Number:"/>
+                        <TextBox
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.ID}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Name:"/>
+                        <TextBox
+                            Margin="21,0,0,0"
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.Name}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Type:"/>
+                        <CheckBox
+                            Content="Fire"
+                            Foreground="White"
+                            IsChecked="{Binding FireIsChecked}"/>
+                        <CheckBox
+                            Content="Water"
+                            Foreground="White"
+                            IsChecked="{Binding WaterIsChecked}"/>
+                        <CheckBox
+                            Content="Grass"
+                            Foreground="White"
+                            IsChecked="{Binding GrassIsChecked}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Abilities:"/>
+                        <TextBox 
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.Abilities}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Description:"/>
+                        <TextBox 
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.Description}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                         Width="200"
+                        HorizontalAlignment="Right">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Height:"/>
+                        <TextBox 
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.Height}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                         Width="200"
+                        HorizontalAlignment="Right">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Weight:"/>
+                        <TextBox
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.Weight}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                         Width="200"
+                        HorizontalAlignment="Right">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Weakness:"/>
+                        <CheckBox
+                            Content="Fire"
+                            Foreground="White"
+                            IsChecked="{Binding WeaknessToFireIsChecked}"/>
+                        <CheckBox
+                            Content="Water"
+                            Foreground="White"
+                            IsChecked="{Binding WeaknessToWaterIsChecked}"/>
+                        <CheckBox
+                            Content="Grass"
+                            Foreground="White"
+                            IsChecked="{Binding WeaknessToGrassIsChecked}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                         Width="200"
+                        HorizontalAlignment="Right">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Category:"/>
+                        <TextBox 
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.Category}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Width="200"
+                        HorizontalAlignment="Right">
+                        <Label 
+                           Style="{StaticResource WhiteLabelStyle}"
+                           Content="Image:"/>
+                        <TextBox 
+                            Style="{StaticResource EntryBlockStyle}"
+                            Text="{Binding UserPokemon.ImageFileName}"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel
+                    Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Button 
+                         Margin="0,0,10,0"
+                        Height="20"
+                        Width="50"
+                        Content="Save"
+                         Command="{Binding ButtonSaveCommand}"
+                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                    <Button 
+                        Grid.Row="2"
+                        Height="20"
+                        Width="50"
+                        Content="Cancel"
+                        Command="{Binding ButtonCancelCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

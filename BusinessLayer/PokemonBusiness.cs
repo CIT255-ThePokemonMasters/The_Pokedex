@@ -20,7 +20,7 @@ namespace The_Pokedex.BusinessLayer
         #region Constructor
         public PokemonBusiness()
         {
-            SqlUtilities.WriteSeedDataToDatabase();
+            //SqlUtilities.WriteSeedDataToDatabase();
         }
 
         #endregion

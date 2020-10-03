@@ -60,6 +60,11 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(AddPokemon)); }
         }
 
+        public ICommand ButtonEditCommand
+        {
+            get { return new RelayCommand(new Action<object>(EditPokemon)); }
+        }
+
         #endregion
 
         #region Fields
@@ -251,32 +256,35 @@ namespace The_Pokedex.ViewModels
         {
             TypeToString = "";
 
-            if (SelectedPokemon != null && SelectedPokemon.PokemonType != null)
+            try
             {
-                if (SelectedPokemon.PokemonType.Count > 1 && SelectedPokemon.PokemonType != null)
+                if (SelectedPokemon != null && SelectedPokemon.PokemonType != null)
                 {
-                    foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                    if (SelectedPokemon.PokemonType.Count > 1 && SelectedPokemon.PokemonType != null)
                     {
-                        TypeToString += type.ToString() + "/ ";
+                        foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                        {
+                            TypeToString += type.ToString() + "/ ";
+                        }
                     }
-                }
-                else if (SelectedPokemon.PokemonType.Count == 1 && SelectedPokemon.PokemonType != null)
-                {
-                    foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                    else if (SelectedPokemon.PokemonType.Count == 1 && SelectedPokemon.PokemonType != null)
                     {
-                        TypeToString += type.ToString();
+                        foreach (Pokemon.Type type in SelectedPokemon.PokemonType)
+                        {
+                            TypeToString += type.ToString();
+                        }
                     }
-                }
-                else
-                {
-                    SelectedPokemon.PokemonType.Add(Pokemon.Type.NONE);
-                    TypeToString = SelectedPokemon.PokemonType.ToString();
+                    else
+                    {
+                        SelectedPokemon.PokemonType.Add(Pokemon.Type.NONE);
+                        TypeToString = SelectedPokemon.PokemonType.ToString();
+                    }
                 }
             }
-            else
+            catch (Exception msg)
             {
-                SelectedPokemon.PokemonType.Add(Pokemon.Type.NONE);
-                TypeToString = SelectedPokemon.PokemonType.ToString();
+                var message = msg.Message;
+                throw;
             }
         }
 
@@ -287,32 +295,35 @@ namespace The_Pokedex.ViewModels
         {
             WeaknessToString = "";
 
-            if (SelectedPokemon != null && SelectedPokemon.PokemonType != null)
+            try
             {
-                if (SelectedPokemon.Weakness.Count > 1 && SelectedPokemon.Weakness != null)
+                if (SelectedPokemon != null && SelectedPokemon.PokemonType != null)
                 {
-                    foreach (Pokemon.Type weakness in SelectedPokemon.Weakness)
+                    if (SelectedPokemon.Weakness.Count > 1 && SelectedPokemon.Weakness != null)
                     {
-                        WeaknessToString += weakness.ToString() + "/ ";
+                        foreach (Pokemon.Type weakness in SelectedPokemon.Weakness)
+                        {
+                            WeaknessToString += weakness.ToString() + "/ ";
+                        }
                     }
-                }
-                else if (SelectedPokemon.Weakness.Count == 1 && SelectedPokemon.Weakness != null)
-                {
-                    foreach (Pokemon.Type type in SelectedPokemon.Weakness)
+                    else if (SelectedPokemon.Weakness.Count == 1 && SelectedPokemon.Weakness != null)
                     {
-                        WeaknessToString += type.ToString();
+                        foreach (Pokemon.Type type in SelectedPokemon.Weakness)
+                        {
+                            WeaknessToString += type.ToString();
+                        }
                     }
-                }
-                else
-                {
-                    SelectedPokemon.Weakness.Add(Pokemon.Type.NONE);
-                    WeaknessToString = "NONE";
+                    else
+                    {
+                        SelectedPokemon.Weakness.Add(Pokemon.Type.NONE);
+                        WeaknessToString = "NONE";
+                    }
                 }
             }
-            else
+            catch (Exception msg)
             {
-                SelectedPokemon.PokemonType.Add(Pokemon.Type.NONE);
-                WeaknessToString = SelectedPokemon.Weakness.ToString();
+                var message = msg.Message;
+                throw;
             }
         }
 
@@ -416,6 +427,9 @@ namespace The_Pokedex.ViewModels
             }
         }
 
+        /// <summary>
+        /// add a pokemon
+        /// </summary>
         public void AddPokemon(object obj)
         {
             PokemonOperation pokemonOperation = new PokemonOperation()
@@ -429,7 +443,31 @@ namespace The_Pokedex.ViewModels
 
             if (pokemonOperation.Status != PokemonOperation.OperationStatus.CANCEL)
             {
+                _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
                 Pokemons.Add(pokemonOperation.pokemon);
+            }
+        }
+
+        public void EditPokemon(object obj)
+        {
+            PokemonOperation pokemonOperation = new PokemonOperation()
+            {
+                Status = PokemonOperation.OperationStatus.CANCEL,
+                pokemon = SelectedPokemon
+            };
+
+            if (SelectedPokemon != null)
+            {
+                Window devin_editWindow = new Devin_EditWindow(pokemonOperation);
+                devin_editWindow.ShowDialog();
+            }
+
+            if (pokemonOperation.Status != PokemonOperation.OperationStatus.CANCEL)
+            {
+                Pokemons.Remove(SelectedPokemon);
+                _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
+                Pokemons.Add(pokemonOperation.pokemon);
+                SelectedPokemon = pokemonOperation.pokemon;
             }
         }
 

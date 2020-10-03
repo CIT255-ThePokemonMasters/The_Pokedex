@@ -482,12 +482,15 @@
                             <Button 
                                 Grid.Column="1"
                                 Content="Edit"
-                                Style="{StaticResource AddEditDeleteButtonStyle}"/>
+                                Style="{StaticResource AddEditDeleteButtonStyle}"
+                                Command="{Binding ButtonEditCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"/>
                             <Button 
                                 Grid.Column="2"
                                 Content="Delete"
                                 Style="{StaticResource AddEditDeleteButtonStyle}"
-                                Command="{Binding DeleteCommand}"/>
+                                Command="{Binding DeleteCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"/>
                         </Grid>
                     </StackPanel>
                 </Grid>

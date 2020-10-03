@@ -10,7 +10,7 @@ using The_Pokedex.UtilityClass;
 
 namespace The_Pokedex.ViewModels
 {
-    class Devin_AddWindowViewModel : ObservableObject
+    class Devin_EditWindowViewModel : ObservableObject
     {
         #region Commands
 
@@ -18,15 +18,16 @@ namespace The_Pokedex.ViewModels
         {
             get
             {
-                return new RelayCommand(new Action<object>(AddPokemon));
+                return new RelayCommand(new Action<object>(EditPokemon));
             }
         }
+
 
         public ICommand ButtonCancelCommand
         {
             get
             {
-                return new RelayCommand(new Action<object>(DeletePokemon));
+                return new RelayCommand(new Action<object>(CancelPokemon));
             }
         }
 
@@ -34,8 +35,8 @@ namespace The_Pokedex.ViewModels
 
         #region Fields
 
-        private PokemonOperation _pokemonOperation;
         private PokemonBusiness _pokemonBusiness;
+        private PokemonOperation _pokemonOperation;
 
         //type bools for checkboxes
         private bool _fireIsChecked;
@@ -121,23 +122,25 @@ namespace The_Pokedex.ViewModels
 
         #endregion
 
-
         #endregion
 
         #region Constructors
 
-        public Devin_AddWindowViewModel(PokemonOperation pokemonOperation)
+        public Devin_EditWindowViewModel(PokemonOperation pokemonOperation)
         {
             UserPokemon = pokemonOperation.pokemon;
             _pokemonOperation = pokemonOperation;
             _pokemonBusiness = new PokemonBusiness();
+
+            DetermineCurrentType();
+            DetermineCurrentWeakness();
         }
 
         #endregion
 
         #region Methods
 
-        private void AddPokemon(object obj)
+        private void EditPokemon(object obj)
         {
             UserPokemon.PokemonType = ConvertTypeChecksIntoType();
             UserPokemon.Weakness = ConvertWeaknessChecksIntoType();
@@ -150,7 +153,8 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        private void DeletePokemon(object obj)
+
+        private void CancelPokemon(object obj)
         {
             _pokemonOperation.Status = PokemonOperation.OperationStatus.CANCEL;
 
@@ -206,6 +210,45 @@ namespace The_Pokedex.ViewModels
             }
             return weaknessTypes;
         }
+
+        private void DetermineCurrentType() 
+        {
+            List<string> typeString = new List<string>();
+
+            foreach (var item in UserPokemon.PokemonType)
+            {
+                typeString.Add(item.ToString());
+            }
+
+            if (typeString.Contains("FIRE"))
+            {
+                FireIsChecked = true;
+            }
+            else if (typeString.Contains("WATER"))
+            {
+                WaterIsChecked = true;
+            }
+        }
+
+        private void DetermineCurrentWeakness()
+        {
+            List<string> weaknessString = new List<string>();
+
+            foreach (var item in UserPokemon.Weakness)
+            {
+                weaknessString.Add(item.ToString());
+            }
+
+            if (weaknessString.Contains("FIRE"))
+            {
+                WeaknessToFireIsChecked = true;
+            }
+            else if (weaknessString.Contains("WATER"))
+            {
+                WeaknessToWaterIsChecked = true;
+            }
+        }
+
         #endregion
     }
 }
