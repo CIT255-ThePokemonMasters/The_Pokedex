@@ -155,6 +155,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\gangar.jpg" />
     <Resource Include="Images\types.jpg" />
     <Resource Include="Images\starters.jpg" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -195,7 +196,6 @@
     <Content Include="Images\d_pad.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\gangar.jpg" />
     <Content Include="Images\mewtwo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
