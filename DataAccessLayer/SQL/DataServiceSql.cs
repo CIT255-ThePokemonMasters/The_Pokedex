@@ -145,14 +145,25 @@ namespace The_Pokedex.DataAccessLayer.SQL
         public void Add(Pokemon pokemon) 
         {
             string connectionString = SqlDataSettings.ConnectionString;
+            List<Pokemon.Type> newTypes = new List<Pokemon.Type>();
+            List<Pokemon.Type> newWeakness = new List<Pokemon.Type>();
+
+            foreach (Pokemon.Type type in pokemon.PokemonType)
+            {
+                newTypes.Add(type);
+            }
+            foreach (Pokemon.Type type in pokemon.Weakness)
+            {
+                newWeakness.Add(type);
+            }
 
             var sb = new StringBuilder("INSERT INTO Pokemon");
-            sb.Append(" ([Id]), ([Name], [Type], [Weakness], [Abilities], [Weight], [Height], [Description], [Category], [ImageFileName]");
+            sb.Append(" ([Id], [Name], [Type], [Weakness], [Abilities], [Weight], [Height], [Description], [Category], [ImageFileName])");
             sb.Append(" Values (");
             sb.Append("'").Append(pokemon.ID).Append("',");
             sb.Append("'").Append(pokemon.Name).Append("',");
-            sb.Append("'").Append(pokemon.PokemonType).Append("',");
-            sb.Append("'").Append(pokemon.Weakness).Append("',");
+            sb.Append("'").Append(string.Join(",", newTypes.Select(s => s.ToString()).ToArray())).Append("',");
+            sb.Append("'").Append(string.Join(",", newWeakness.Select(s => s.ToString()).ToArray())).Append("',");
             sb.Append("'").Append(pokemon.Abilities).Append("',");
             sb.Append("'").Append(pokemon.Weight).Append("',");
             sb.Append("'").Append(pokemon.Height).Append("',");
@@ -213,12 +224,23 @@ namespace The_Pokedex.DataAccessLayer.SQL
         public void Update(Pokemon pokemon) 
         {
             string connectionString = SqlDataSettings.ConnectionString;
+            List<Pokemon.Type> newTypes = new List<Pokemon.Type>();
+            List<Pokemon.Type> newWeakness = new List<Pokemon.Type>();
+
+            foreach (Pokemon.Type type in pokemon.PokemonType)
+            {
+                newTypes.Add(type);
+            }
+            foreach (Pokemon.Type type in pokemon.Weakness)
+            {
+                newWeakness.Add(type);
+            }
 
             var sb = new StringBuilder("UPDATE Pokemon SET ");
             sb.Append("Id = '").Append(pokemon.ID).Append("' ");
             sb.Append("Name = '").Append(pokemon.Name).Append("' ");
-            sb.Append("Type = '").Append(pokemon.PokemonType).Append("' ");
-            sb.Append("Weakness = '").Append(pokemon.Weakness).Append("' ");
+            sb.Append("Type = '").Append(string.Join(",", newTypes.Select(s => s.ToString()).ToArray())).Append("' ");
+            sb.Append("Weakness = '").Append(string.Join(",", newWeakness.Select(s => s.ToString()).ToArray())).Append("' ");
             sb.Append("Abilities = '").Append(pokemon.Abilities).Append("' ");
             sb.Append("Weight = '").Append(pokemon.Weight).Append("' ");
             sb.Append("Height = '").Append(pokemon.Height).Append("' ");

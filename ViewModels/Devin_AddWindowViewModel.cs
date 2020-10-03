@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using The_Pokedex.BusinessLayer;
 using The_Pokedex.Models;
 using The_Pokedex.UtilityClass;
 
@@ -34,6 +35,7 @@ namespace The_Pokedex.ViewModels
         #region Fields
 
         private PokemonOperation _pokemonOperation;
+        private PokemonBusiness _pokemonBusiness;
 
         //type bools for checkboxes
         private bool _fireIsChecked;
@@ -128,6 +130,7 @@ namespace The_Pokedex.ViewModels
         {
             UserPokemon = pokemonOperation.pokemon;
             _pokemonOperation = pokemonOperation;
+            _pokemonBusiness = new PokemonBusiness();
         }
 
         #endregion
@@ -139,6 +142,7 @@ namespace The_Pokedex.ViewModels
             UserPokemon.PokemonType = ConvertTypeChecksIntoType();
             UserPokemon.Weakness = ConvertWeaknessChecksIntoType();
             _pokemonOperation.Status = PokemonOperation.OperationStatus.OKAY;
+            _pokemonBusiness.AddPokemon(UserPokemon);
 
             if (obj is System.Windows.Window)
             {
