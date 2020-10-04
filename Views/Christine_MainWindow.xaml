@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:The_Pokedex.Views"
         mc:Ignorable="d"
         Title="Christine_MainWindow" 
-        Height="600" 
+        Height="650" 
         Width="830"
         Background="Red">
     <Window.Resources>
@@ -242,10 +242,10 @@
                                 Style="{StaticResource ButtonStyle}" Margin="430.5,197,118,-196" Grid.Column="1"
                                 />
                         <Button
-                                Content="Edit"
-                                Command="{Binding Path=ResetPokemonListCommand }"
+                                Content="Edit"                             
                                 Style="{StaticResource ButtonStyle}" Margin="316,198,232,-195" Grid.Column="1"
-                                />
+                                Command="{Binding ButtonEditCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"/>
                         <Button
                                 Content="Exit"
                                 Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"
