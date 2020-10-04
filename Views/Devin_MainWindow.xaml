@@ -1,6 +1,7 @@
 ﻿<Window x:Class="The_Pokedex.Views.Devin_MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:The_Pokedex.Views"
@@ -29,7 +30,6 @@
             <Setter Property="FontFamily" Value="Arial Black"/>
         </Style>
         <Style x:Key="LargeInfoBoxStyle" TargetType="TextBlock">
-            <Setter Property="Background" Value="Black"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Arial Black"/>
@@ -255,7 +255,14 @@
                                     Style="{StaticResource AddEditDeleteButtonStyle}"
                                 />
                             </StackPanel>
-                            
+
+
+                            <Image
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Width="150"
+                                Height="100"
+                                gif:ImageBehavior.AnimatedSource="/Images/pokeballRoll.gif"/>
 
                             <!-- Pokemon Number Text Block -->
                             <TextBlock
@@ -268,11 +275,6 @@
                                 FontWeight="ExtraBold"
                                 Width="120"
                                 Height="100"/>
-                           <!-- <Image
-                                Grid.Column="2"
-                                Width="100"
-                                Height="100"
-                                Source="C:\NMC Classes\CIT255\Master_Detail_App\Sprint2\The_Pokedex\Images\d_pad.png"/> -->
                             <TextBlock 
                                 Grid.Row="1"
                                 Grid.Column="2"

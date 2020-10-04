@@ -144,6 +144,8 @@ namespace The_Pokedex.DataAccessLayer.SQL
         /// </summary>
         public void Add(Pokemon pokemon) 
         {
+            Delete(pokemon.ID);
+
             string connectionString = SqlDataSettings.ConnectionString;
             List<Pokemon.Type> newTypes = new List<Pokemon.Type>();
             List<Pokemon.Type> newWeakness = new List<Pokemon.Type>();

@@ -67,6 +67,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -164,8 +167,22 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Images\gangar.jpg" />
-    <Resource Include="Images\types.jpg" />
-    <Resource Include="Images\starters.jpg" />
+    <Resource Include="Images\pikachuDanceSmall.jpg" />
+    <Resource Include="Images\charizardWings.gif" />
+    <Resource Include="Images\blastoiseAnim.gif" />
+    <Resource Include="Images\eveAnim.gif" />
+    <Content Include="Images\pikachuInHatThumbnail.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\startersSmallBanner.jpg" />
+    <Resource Include="Images\pikaDance.gif" />
+    <Resource Include="Images\pokeballRoll.gif" />
+    <Content Include="Images\types.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\starters.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -207,8 +224,12 @@
     <Content Include="Images\mewtwo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\Pokeball.PNG" />
-    <Resource Include="Images\mew_mewtwo.jpg" />
+    <Content Include="Images\Pokeball.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mew_mewtwo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\squirtle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

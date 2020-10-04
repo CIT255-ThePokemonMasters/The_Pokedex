@@ -1,11 +1,12 @@
 ﻿<Window x:Class="The_Pokedex.Views.Devin_AddWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:The_Pokedex.Views"
         mc:Ignorable="d"
-        Title="Devin_AddWindow" Height="450" Width="800" Background="Black">
+        Title="Devin_AddWindow" Height="500" Width="800" Background="Black">
     <Window.Resources>
         <Style x:Key="BodyTextStyle" TargetType="Label">
             <Setter Property="Foreground" Value="Black"/>
@@ -88,23 +89,32 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/mew_mewtwo.jpg"></ImageBrush>
-            <!-- You need to put in the main file for images like "/Images/Pokeball.PNG"/>-->
-            <!--I updated the pathing- you have it set locally for your computer-->
-        </Grid.Background>
         <StackPanel>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
+                    <RowDefinition Height="100"/>
                     <RowDefinition Height="300"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Label 
+                <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                    <Label 
                     Grid.Row="0"
                     Content="Add A Pokemon"
                     FontSize="30"
+                    Width="640"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     Style="{StaticResource AddEditTitleStyle}"/>
+                <Image
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Width="150"
+                        Height="100"
+                        gif:ImageBehavior.AnimatedSource="/Images/charizardWings.gif"/>
+                </StackPanel>
+                
                 <Grid
                     Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -137,7 +147,7 @@
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Name:"/>
                         <TextBox
-                            Margin="21,0,0,0"
+                            Margin="43,0,0,0"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Name}"/>
                     </StackPanel>
@@ -169,6 +179,7 @@
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Abilities:"/>
                         <TextBox 
+                            Margin="28,0,0,0"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Abilities}"/>
                     </StackPanel>
@@ -213,8 +224,8 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Orientation="Horizontal"
-                         Width="200"
-                        HorizontalAlignment="Right">
+                         Width="300"
+                        HorizontalAlignment="Left">
                         <Label 
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Weakness:"/>

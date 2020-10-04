@@ -81,7 +81,6 @@ namespace The_Pokedex.ViewModels
         private string _errorMessage;
         private string _operationFeedback;
 
-        private ComboBox _filterComboBox;
         #endregion
 
         #region Properties
@@ -179,15 +178,6 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public ComboBox FilterComboBox
-        {
-            get { return _filterComboBox; }
-            set
-            {
-                _filterComboBox = value;
-                OnPropertyChanged(nameof(FilterComboBox));
-            }
-        }
         #endregion
 
         #region Constructors
