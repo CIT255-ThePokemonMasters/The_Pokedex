@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -318,7 +319,7 @@ namespace The_Pokedex.ViewModels
 
         /// <summary>
         /// search by name
-        /// </summary>
+        /// </summary>      
         private void OnSearchByName(object obj)
         {
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
@@ -326,14 +327,10 @@ namespace The_Pokedex.ViewModels
 
             Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
 
-            if (Pokemons.Count == 0 && SearchText != " ")
+            if (String.IsNullOrEmpty(SearchText))
             {
-                ErrorMessage = "*Sorry, that Pokemon was not found";
-            }
-            else if (SearchText == " ")
-            {
-                ErrorMessage = " ";
-            }
+                MessageBox.Show("You have to enter a Pokemon name");
+            }          
         }
 
         /// <summary>
@@ -364,7 +361,8 @@ namespace The_Pokedex.ViewModels
             }
             else
             {
-                ErrorMessage = $"*Sorry, you do not have any {FilterText.ToUpper()} type Pokemon in your Pokedex";
+                MessageBox.Show("You have to enter a type" +
+                        " Fire, Water, Grass, Psychic");   
             }
         }
 

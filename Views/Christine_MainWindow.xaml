@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:The_Pokedex.Views"
         mc:Ignorable="d"
         Title="Christine_MainWindow" 
-        Height="600" 
+        Height="650" 
         Width="830"
         Background="Red">
     <Window.Resources>
