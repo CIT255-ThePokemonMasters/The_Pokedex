@@ -189,7 +189,7 @@ namespace The_Pokedex.ViewModels
 
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
 
-            SearchText = "";
+            //SearchText = "";
             FilterText = "";
 
             UpdateImageFilePath();
@@ -345,16 +345,22 @@ namespace The_Pokedex.ViewModels
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
-            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
-
-            if (Pokemons.Count == 0 && SearchText != " ")
+            if (!String.IsNullOrEmpty(SearchText))
+            {
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+            }
+            else if (Pokemons.Count == 0)
             {
                 ErrorMessage = "*Sorry, that Pokemon was not found";
             }
-            else if (SearchText == " ")
+            else
             {
-                ErrorMessage = " ";
+                ErrorMessage = "*Sorry, that Pokemon was not found";
             }
+            //else if (SearchText == " ")
+            //{
+            //    ErrorMessage = " ";
+            //}
         }
 
         /// <summary>

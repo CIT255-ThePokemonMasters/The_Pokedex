@@ -46,7 +46,7 @@
         <Style x:Key="AddEditDeleteButtonStyle" TargetType="Button">
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="50"/>
-            <Setter Property="Background" Value="DarkOrange" />
+            <Setter Property="Background" Value="Gold" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="FontWeight" Value="ExtraBold" />
             <Setter Property="FontFamily" Value="Arial Black" />
@@ -66,7 +66,7 @@
             <Setter Property="BorderBrush" Value="Black"/>
         </Style>
         <Style x:Key="AddEditTitleStyle" TargetType="Label">
-            <Setter Property="Foreground" Value="MediumPurple"/>
+            <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="ExtraBold" />
         </Style>
@@ -99,13 +99,14 @@
                     Grid.Row="0"
                     Orientation="Horizontal">
                     <Label 
+                        Margin="5,0,0,0"
                         Grid.Row="0"
                         Content="Edit A Pokemon"
                         FontSize="30"
                         Width="640"
-                        HorizontalContentAlignment="Center"
+                        HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Center"
-                    Style="{StaticResource AddEditTitleStyle}">
+                        Style="{StaticResource AddEditTitleStyle}">
                     </Label>
                     <Image
                         Grid.Column="0"
@@ -135,6 +136,7 @@
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Number:"/>
                         <TextBox
+                            Margin="27,0,0,0"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.ID}"/>
                     </StackPanel>
@@ -146,7 +148,7 @@
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Name:"/>
                         <TextBox
-                            Margin="21,0,0,0"
+                            Margin="43,0,0,0"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Name}"/>
                     </StackPanel>
@@ -178,6 +180,7 @@
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Abilities:"/>
                         <TextBox 
+                            Margin="27,0,0,0"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Abilities}"/>
                     </StackPanel>
@@ -276,6 +279,7 @@
                         Height="20"
                         Width="50"
                         Content="Save"
+                        Style="{StaticResource AddEditDeleteButtonStyle}"
                          Command="{Binding ButtonSaveCommand}"
                          CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
                     <Button 
@@ -283,6 +287,7 @@
                         Height="20"
                         Width="50"
                         Content="Cancel"
+                        Style="{StaticResource AddEditDeleteButtonStyle}"
                         Command="{Binding ButtonCancelCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
                 </StackPanel>

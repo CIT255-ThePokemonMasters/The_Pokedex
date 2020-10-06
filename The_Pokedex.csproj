@@ -31,7 +31,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -175,8 +175,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\startersSmallBanner.jpg" />
-    <Resource Include="Images\pikaDance.gif" />
+    <Content Include="Images\pikaDance.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\pokeballRoll.gif" />
+    <Resource Include="Images\pokemonLogo.png" />
     <Content Include="Images\types.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

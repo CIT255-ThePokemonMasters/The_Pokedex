@@ -7,6 +7,12 @@ using System.Windows.Input;
 using The_Pokedex.BusinessLayer;
 using The_Pokedex.UtilityClass;
 using The_Pokedex.Views;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace The_Pokedex.ViewModels
 {
