@@ -71,7 +71,7 @@
             <Setter Property="FontWeight" Value="ExtraBold" />
         </Style>
         <Style x:Key="WhiteLabelStyle" TargetType="Label">
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="FontWeight" Value="Bold" />
@@ -85,6 +85,7 @@
             <Setter Property="Height" Value="20" />
             <Setter Property="TextAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="SpellCheck.IsEnabled" Value="True" />
         </Style>
     </Window.Resources>
     <Grid>
@@ -93,7 +94,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="300"/>
-                    <RowDefinition />
+                    <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
                 <StackPanel
                     Grid.Row="0"
@@ -128,147 +129,344 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel
+                    <!-- number grid -->
+                    <Grid
                         Grid.Row="0"
-                        Grid.Column="0"
-                        Orientation="Horizontal">
+                        Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Label 
+                            Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Number:"/>
                         <TextBox
-                            Margin="27,0,0,0"
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.ID}"/>
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Orientation="Horizontal">
+                    </Grid>
+
+                    <!-- name grid -->
+                    <Grid
+                        Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Label 
+                             Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Name:"/>
                         <TextBox
-                            Margin="43,0,0,0"
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Name}"/>
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Orientation="Horizontal">
-                        <Label 
+                    </Grid>
+
+                    <!-- types grid -->
+                    <Grid
+                        Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Type:"/>
-                        <CheckBox
+                        <!--<DataGrid 
+                            Grid.Column="1"
+                            x:Name="types"
+                            ItemsSource="{Binding serPokemon.PokemonType}" 
+                            SelectedItem="{Binding CurrentNPC}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                    Header="Types" 
+                                    IsReadOnly="True"                 
+                                    Binding="{Binding TypeAsString, Mode=OneWay}"
+                                    Width="*"
+                                            >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>-->
+                        <ListBox
+                            Grid.Column="1"
+                            Margin="5,0,0,0"
+                            SelectionMode="Multiple"
+                            Width="100"
+                            HorizontalAlignment="Left">
+                            <CheckBox
                             Content="Fire"
-                            Foreground="White"
                             IsChecked="{Binding FireIsChecked}"/>
-                        <CheckBox
+                            <CheckBox
                             Content="Water"
-                            Foreground="White"
                             IsChecked="{Binding WaterIsChecked}"/>
-                        <CheckBox
+                            <CheckBox
                             Content="Grass"
-                            Foreground="White"
                             IsChecked="{Binding GrassIsChecked}"/>
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Orientation="Horizontal">
+                            <CheckBox
+                            Content="Normal"
+                            IsChecked="{Binding NormalIsChecked}"/>
+                            <CheckBox
+                            Content="Fighting"
+                            IsChecked="{Binding FightingIsChecked}"/>
+                            <CheckBox
+                            Content="Electric"
+                            IsChecked="{Binding ElectricIsChecked}"/>
+                            <CheckBox
+                            Content="Flying"
+                            IsChecked="{Binding FlyingIsChecked}"/>
+                            <CheckBox
+                            Content="Poison"
+                            IsChecked="{Binding PoisonIsChecked}"/>
+                            <CheckBox
+                            Content="Ground"
+                            IsChecked="{Binding GroundIsChecked}"/>
+                            <CheckBox
+                            Content="Rock"
+                            IsChecked="{Binding RockIsChecked}"/>
+                            <CheckBox
+                            Content="Psychic"
+                            IsChecked="{Binding PsychicIsChecked}"/>
+                            <CheckBox
+                            Content="Ice"
+                            IsChecked="{Binding IceIsChecked}"/>
+                            <CheckBox
+                            Content="Dragon"
+                            IsChecked="{Binding DragonIsChecked}"/>
+                            <CheckBox
+                            Content="Ghost"
+                            IsChecked="{Binding GhostIsChecked}"/>
+                            <CheckBox
+                            Content="Dark"
+                            IsChecked="{Binding DarkIsChecked}"/>
+                            <CheckBox
+                            Content="Steel"
+                            IsChecked="{Binding SteelIsChecked}"/>
+                            <CheckBox
+                            Content="Fairy"
+                            IsChecked="{Binding FairyIsChecked}"/>
+                            <CheckBox
+                            Content="Bug"
+                            IsChecked="{Binding BugIsChecked}"/>
+                        </ListBox>
+                    </Grid>
+
+                    <!-- abilities grid -->
+                    <Grid
+                        Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Label 
+                            Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Abilities:"/>
-                        <TextBox 
-                            Margin="27,0,0,0"
+                        <TextBox
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Abilities}"/>
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        Orientation="Horizontal">
+                    </Grid>
+
+                    <!-- description grid -->
+                    <Grid
+                        Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Label 
+                            Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Description:"/>
                         <TextBox 
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
+                            Height="30"
+                            Width="200"
+                            TextWrapping="Wrap"
                             Text="{Binding UserPokemon.Description}"/>
-                    </StackPanel>
-                    <StackPanel
+                    </Grid>
+
+                    <!-- height grid -->
+                    <Grid
                         Grid.Row="0"
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                         Width="200"
-                        HorizontalAlignment="Right">
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="280"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Label 
+                            HorizontalAlignment="Right"
+                            Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Height:"/>
-                        <TextBox 
+                        <TextBox
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Height}"/>
-                    </StackPanel>
-                    <StackPanel
+                    </Grid>
+
+                    <!-- weight grid -->
+                    <Grid
                         Grid.Row="1"
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                         Width="200"
-                        HorizontalAlignment="Right">
-                        <Label 
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="280"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            HorizontalAlignment="Right"
+                            Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Weight:"/>
                         <TextBox
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Weight}"/>
-                    </StackPanel>
-                    <StackPanel
+                    </Grid>
+
+                    <!-- weakness grid -->
+                    <Grid
                         Grid.Row="2"
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                         Width="300"
-                        HorizontalAlignment="Left">
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="280"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Label 
+                            HorizontalAlignment="Right"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Weakness:"/>
-                        <CheckBox
+                        <ListBox
+                            Grid.Column="1"
+                            Margin="0,0,10,0"
+                            SelectionMode="Multiple"
+                            HorizontalAlignment="Right"
+                            Width="100">
+                            <CheckBox
                             Content="Fire"
-                            Foreground="White"
                             IsChecked="{Binding WeaknessToFireIsChecked}"/>
-                        <CheckBox
+                            <CheckBox
                             Content="Water"
-                            Foreground="White"
                             IsChecked="{Binding WeaknessToWaterIsChecked}"/>
-                        <CheckBox
+                            <CheckBox
                             Content="Grass"
-                            Foreground="White"
                             IsChecked="{Binding WeaknessToGrassIsChecked}"/>
-                    </StackPanel>
-                    <StackPanel
+                            <CheckBox
+                            Content="Normal"
+                            IsChecked="{Binding WeaknessToNormalIsChecked}"/>
+                            <CheckBox
+                            Content="Fighting"
+                            IsChecked="{Binding WeaknessToFightingIsChecked}"/>
+                            <CheckBox
+                            Content="Electric"
+                            IsChecked="{Binding WeaknessToElectricIsChecked}"/>
+                            <CheckBox
+                            Content="Flying"
+                            IsChecked="{Binding WeaknessToFlyingIsChecked}"/>
+                            <CheckBox
+                            Content="Poison"
+                            IsChecked="{Binding WeaknessToPoisonIsChecked}"/>
+                            <CheckBox
+                            Content="Ground"
+                            IsChecked="{Binding WeaknessToGroundIsChecked}"/>
+                            <CheckBox
+                            Content="Rock"
+                            IsChecked="{Binding WeaknessToRockIsChecked}"/>
+                            <CheckBox
+                            Content="Psychic"
+                            IsChecked="{Binding WeaknessToPsychicIsChecked}"/>
+                            <CheckBox
+                            Content="Ice"
+                            IsChecked="{Binding WeaknessToIceIsChecked}"/>
+                            <CheckBox
+                            Content="Dragon"
+                            IsChecked="{Binding WeaknessToDragonIsChecked}"/>
+                            <CheckBox
+                            Content="Ghost"
+                            IsChecked="{Binding WeaknessToGhostIsChecked}"/>
+                            <CheckBox
+                            Content="Dark"
+                            IsChecked="{Binding WeaknessToDarkIsChecked}"/>
+                            <CheckBox
+                            Content="Steel"
+                            IsChecked="{Binding WeaknessToSteelIsChecked}"/>
+                            <CheckBox
+                            Content="Fairy"
+                            IsChecked="{Binding WeaknessToFairyIsChecked}"/>
+                            <CheckBox
+                            Content="Bug"
+                            IsChecked="{Binding WeaknessToBugIsChecked}"/>
+                        </ListBox>
+                    </Grid>
+
+                    <!-- category grid -->
+                    <Grid
                         Grid.Row="3"
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                         Width="200"
-                        HorizontalAlignment="Right">
-                        <Label 
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="280"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            HorizontalAlignment="Right"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Category:"/>
                         <TextBox 
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
                             Text="{Binding UserPokemon.Category}"/>
-                    </StackPanel>
-                    <StackPanel
+                    </Grid>
+
+                    <!-- image grid -->
+                    <Grid
                         Grid.Row="4"
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                        Width="200"
-                        HorizontalAlignment="Right">
-                        <Label 
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="280"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <!--<Label 
+                            HorizontalAlignment="Right"
                            Style="{StaticResource WhiteLabelStyle}"
                            Content="Image:"/>
                         <TextBox 
+                            HorizontalAlignment="Left"
+                            Grid.Column="1"
                             Style="{StaticResource EntryBlockStyle}"
-                            Text="{Binding UserPokemon.ImageFileName}"/>
-                    </StackPanel>
+                            Text="{Binding UserPokemon.ImageFileName}"/>-->
+                        <Button
+                            Grid.Column="0"
+                            Content="Image:"
+                            Width="65"
+                            Height="30"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource AddEditDeleteButtonStyle}"
+                            Command="{Binding AddImageCommand}"/>
+                        <Image 
+                            Grid.Column="1"
+                            Source="{Binding ImageSource}"
+                            />
+                    </Grid>
+
+                    <!-- buttons -->
                 </Grid>
                 <StackPanel
                     Grid.Row="2"

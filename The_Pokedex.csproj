@@ -175,6 +175,12 @@
     <Resource Include="Images\charizardWings.gif" />
     <Resource Include="Images\blastoiseAnim.gif" />
     <Resource Include="Images\eveAnim.gif" />
+    <Resource Include="Images\mew.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\diglett.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Images\pikachuInHatThumbnail.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -184,6 +190,7 @@
     </Content>
     <Resource Include="Images\pokeballRoll.gif" />
     <Resource Include="Images\pokemonLogo.png" />
+    <Resource Include="Images\rainbow.jpg" />
     <Content Include="Images\types.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -209,9 +216,15 @@
     <Resource Include="DataAccessLayer\Images\squirtle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="DataAccessLayer\Images\mew.png" />
-    <Resource Include="DataAccessLayer\Images\Pokeball.PNG" />
-    <Resource Include="DataAccessLayer\Images\diglett.PNG" />
+    <Resource Include="DataAccessLayer\Images\mew.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="DataAccessLayer\Images\Pokeball.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="DataAccessLayer\Images\diglett.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="DataAccessLayer\SQL\Pokemon.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

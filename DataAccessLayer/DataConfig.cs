@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using The_Pokedex.DataAccessLayer.SQL;
 
 namespace The_Pokedex.DataAccessLayer
@@ -15,7 +16,8 @@ namespace The_Pokedex.DataAccessLayer
 
         public static string DataPathJson => @"DataAccessLayer\Json\pokemonList.json";
         public static string DataPathXml => @"DataAccessLayer\Xml\pokemonList.xml";
-        public static string ImagePath => @"\DataAccessLayer\Images\";
+        public static string ImagePath => @"\Images\";
+        //public static string ImagePath => @"";
 
         public IDataService SetDataService() 
         {

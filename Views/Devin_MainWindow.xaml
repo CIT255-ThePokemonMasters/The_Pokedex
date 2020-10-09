@@ -129,11 +129,11 @@
                                 Width="200"
                             />
                         </Border>
-                        
-                        
+
+
                         <!-- List of Pokemon -->
                         <ListBox 
-                            Margin="80,0,0,0"
+                            Margin="82,0,0,0"
                             Width="200"
                             Height="200"
                             ItemsSource="{Binding Pokemons}"
@@ -218,6 +218,7 @@
                                     Grid.Column="1"
                                     Width="90"
                                     Height="20"
+                                    SpellCheck.IsEnabled="True"
                                     Text="{Binding SearchText}"/>
                                 <Button
                                     Margin="0,5,0,0"
@@ -234,12 +235,18 @@
                                     Margin="0,0,0,10"
                                     Content="Filter By Type: "
                                     Foreground="Gold"/>
-                                <TextBox 
+                                <!--<TextBox 
                                     VerticalContentAlignment="Center"
                                     Grid.Column="1"
                                     Width="90"
                                     Height="20"
-                                    Text="{Binding FilterText}"/>
+                                    SpellCheck.IsEnabled="True"
+                                    Text="{Binding FilterText}"/>-->
+                                <ComboBox
+                                    
+                                    ItemsSource="{Binding TypeForFilter}"
+                                    SelectedItem="{Binding Type}"
+                                    IsSynchronizedWithCurrentItem="True"/>
                                 <Button
                                     Margin="0,5,0,0"
                                     Content="Filter"
@@ -267,13 +274,13 @@
                                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                 Source="https://www.animatedimages.org/data/media/1446/animated-pokemon-image-0082.gif"></WebBrowser>-->
-                            
-                             <Image
+
+                            <Image
                                 Grid.Column="0"
                                 Grid.Row="1"
                                 Width="150"
                                 Height="100"
-                                gif:ImageBehavior.AnimatedSource="/Images/pokeballRoll.gif"/> 
+                                gif:ImageBehavior.AnimatedSource="/Images/pokeballRoll.gif"/>
 
                             <!-- Pokemon Number Text Block -->
                             <TextBlock
@@ -300,7 +307,7 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            
+
             <!-- Right side of display -->
             <Border
                 Grid.Column="1"
@@ -313,208 +320,156 @@
                         <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
                     <!-- Info Text Block -->
-                    <StackPanel Grid.Row="0">
-                        <Grid
+                    <Border
+                        Grid.Row="0"
+                        BorderThickness="2"
+                        BorderBrush="DarkRed">
+                        <StackPanel Grid.Row="0">
+                            <Grid
                             Width="495">
-                            <!--<Grid.Background>
+                                <!--<Grid.Background>
                                 <ImageBrush ImageSource="/Images\gangar.jpg"></ImageBrush>
                             </Grid.Background>-->
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel
                                 Grid.Row="0"
                                 Orientation="Horizontal">
-                                <Label 
+                                    <Label 
                                      VerticalAlignment="Center"
                                     Content="Height(ft):"
                                     Foreground="Gold"/>
-                                <TextBlock 
+                                    <TextBlock 
                                      VerticalAlignment="Center"
                                     Grid.Row="0"
                                     Text="{Binding SelectedPokemon.Height}"
                                     Foreground="Gold"/>
-                                <Label 
+                                    <Label 
                                     VerticalAlignment="Center"
                                     Margin="80,0,0,0"
                                     Content="Weight(lbs):"
                                     Foreground="Gold"/>
-                                <TextBlock 
+                                    <TextBlock 
                                     VerticalAlignment="Center"
                                     Grid.Row="0"
                                     Text="{Binding SelectedPokemon.Weight}"
                                     Foreground="Gold"/>
-                                <Label 
+                                    <Label 
                                     VerticalAlignment="Center"
                                     Margin="80,0,0,0"
                                     Content="Category: "
                                     Foreground="Gold"/>
-                                <TextBlock 
+                                    <TextBlock 
                                     VerticalAlignment="Center"
                                     Text="{Binding SelectedPokemon.Category}"
                                     Foreground="Gold"/>
-                            </StackPanel>
-                            <StackPanel
+                                </StackPanel>
+                                <StackPanel
                                 Grid.Row="1"
                                 Orientation="Horizontal">
-                                <Label 
+                                    <Label 
                                     VerticalAlignment="Center"
                                     Content="Type: "
                                     Foreground="Gold"/>
-                                <TextBlock 
+                                    <TextBlock 
                                     VerticalAlignment="Center"
                                     Text="{Binding TypeToString}"
                                     Foreground="Gold"
                                     Width="400"/>
-                            </StackPanel>
-                            <StackPanel
+                                </StackPanel>
+                                <StackPanel
                                 Grid.Row="2"
                                 Orientation="Horizontal">
-                                <Label 
+                                    <Label 
                                     VerticalAlignment="Center"
                                     Content="Weaknesses: "
                                     Foreground="Gold"/>
-                                <TextBlock 
+                                    <TextBlock 
                                     VerticalAlignment="Center"
                                     Text="{Binding WeaknessToString}"
                                     Foreground="Gold"
                                     Width="400"/>
-                            </StackPanel>
-                            <StackPanel
+                                </StackPanel>
+                                <StackPanel
                                 Grid.Row="3"
                                 Orientation="Horizontal">
-                                <Label 
+                                    <Label 
                                     VerticalAlignment="Center"
                                     Content="Ability: "
                                     Foreground="Gold"/>
-                                <TextBlock 
+                                    <TextBlock 
                                     VerticalAlignment="Center"
                                     Text="{Binding SelectedPokemon.Abilities}"
                                     Foreground="Gold"
                                     Width="400"/>
-                            </StackPanel>
-                            <TextBlock 
+                                </StackPanel>
+                                <TextBlock 
                                 Text="{Binding SelectedPokemon.Description}"
                                 Grid.Row="4"
                                 Padding="5"
                                 Style="{StaticResource LargeInfoBoxStyle}"/>
-                        </Grid>
-                    </StackPanel>
-                    
-                    <!-- Decorative Blue Buttons -->
-                    <StackPanel
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Grid.Row="1"
+                        BorderBrush="DarkRed"
+                        BorderThickness="2">
+                        <StackPanel
                         Grid.Row="1">
-                        <Image 
+                            <Image 
                             Source="/Images/pokemonLogo.PNG"
                             Height="130"
                             Stretch="Fill"/>
-                        <!--<Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Rectangle 
-                                Height="40"
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle 
-                                Height="40"
-                                Grid.Column="1"
-                                Grid.Row="0"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle 
-                                Height="40"
-                                Grid.Column="2"
-                                Grid.Row="0"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle 
-                                Height="40"
-                                Grid.Column="3"
-                                Grid.Row="0"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle
-                                Height="40"
-                                Grid.Column="4"
-                                Grid.Row="0"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle 
-                                Margin="0,15,0,0"
-                                Height="40"
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle 
-                                Margin="0,15,0,0"
-                                Height="40"
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle 
-                                Margin="0,15,0,0"
-                                Height="40"
-                                Grid.Column="2"
-                                Grid.Row="1"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle
-                                Margin="0,15,0,0"
-                                Height="40"
-                                Grid.Column="3"
-                                Grid.Row="1"
-                                Style="{StaticResource BlueSquareButton}"/>
-                            <Rectangle
-                                Margin="0,15,0,0"
-                                Height="40"
-                                Grid.Column="4"
-                                Grid.Row="1"
-                                Style="{StaticResource BlueSquareButton}"/>
-                        </Grid>--> 
-                    </StackPanel>
-                    <StackPanel
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Grid.Row="2"
+                        BorderBrush="DarkRed"
+                        BorderThickness="2">
+                        <StackPanel
                         Grid.Row="2"
                         Height="70">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="70"/>
-                            </Grid.RowDefinitions>
-                            <Button 
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"/>
+                                </Grid.RowDefinitions>
+                                <Button 
                                 Grid.Column="0"
                                 Content="Add"
                                 Style="{StaticResource AddEditDeleteButtonStyle}"
                                 Command="{Binding ButtonAddCommand}"
                                 CommandParameter="{Binding Text, ElementName=Quantity}"/>
-                            <Button 
+                                <Button 
                                 Grid.Column="1"
                                 Content="Edit"
                                 Style="{StaticResource AddEditDeleteButtonStyle}"
                                 Command="{Binding ButtonEditCommand}"
                                 CommandParameter="{Binding Text, ElementName=Quantity}"/>
-                            <Button 
+                                <Button 
                                 Grid.Column="2"
                                 Content="Delete"
                                 Style="{StaticResource AddEditDeleteButtonStyle}"
                                 Command="{Binding DeleteCommand}"
                                 CommandParameter="{Binding Text, ElementName=Quantity}"/>
-                        </Grid>
-                    </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
                 </Grid>
             </Border>
-         </Grid>
+        </Grid>
     </Grid>
 </Window>
