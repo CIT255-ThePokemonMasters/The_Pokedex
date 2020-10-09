@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using The_Pokedex.BusinessLayer;
 using The_Pokedex.DataAccessLayer;
 using The_Pokedex.Models;
@@ -77,10 +78,13 @@ namespace The_Pokedex.ViewModels
         private string _typeToString;
         private string _weaknessToString;
         private string _searchText;
-        private string _filterText;
         private string _errorMessage;
         private string _operationFeedback;
 
+        private ObservableCollection<string> _typesForFilter;
+        private string _type;
+
+        private string _imageSource;
         #endregion
 
         #region Properties
@@ -147,16 +151,6 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public string FilterText
-        {
-            get { return _filterText; }
-            set
-            {
-                _filterText = value;
-                OnPropertyChanged(nameof(FilterText));
-            }
-        }
-
         public string ErrorMessage
         {
             get { return _errorMessage; }
@@ -178,6 +172,34 @@ namespace The_Pokedex.ViewModels
             }
         }
 
+        public ObservableCollection<string> TypeForFilter
+        {
+            get { return _typesForFilter; }
+            set
+            {
+                _typesForFilter = value;
+                OnPropertyChanged(nameof(TypeForFilter));
+            }
+        }
+        public string Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged(nameof(Type));
+            }
+        }
+
+        public string ImageSource
+        {
+            get { return _imageSource; }
+            set
+            {
+                _imageSource = value;
+                OnPropertyChanged(nameof(ImageSource));
+            }
+        }
         #endregion
 
         #region Constructors
@@ -186,11 +208,12 @@ namespace The_Pokedex.ViewModels
         {
             _pokemonBusiness = pokemonBusiness;
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-
+            _typesForFilter = new ObservableCollection<string>(Enum.GetNames(typeof(Pokemon.Type)));
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
 
-            //SearchText = "";
-            FilterText = "";
+            Devin_MainWindow devin_MainWindow = new Devin_MainWindow();
+
+
 
             UpdateImageFilePath();
         }
@@ -215,9 +238,20 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void UpdateImageFilePath()
         {
+            string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
+            //ImageSource = new BitmapImage(new Uri(useablePath)).ToString();
             foreach (var pokemon in _pokemon)
             {
-                pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                try
+                {
+                    //pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                    pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
+                }
+                catch (Exception e)
+                {
+                    var m = e.Message;
+                    throw;
+                }
             }
         }
 
@@ -349,18 +383,14 @@ namespace The_Pokedex.ViewModels
             {
                 Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
             }
-            else if (Pokemons.Count == 0)
-            {
-                ErrorMessage = "*Sorry, that Pokemon was not found";
-            }
             else
             {
                 ErrorMessage = "*Sorry, that Pokemon was not found";
             }
-            //else if (SearchText == " ")
-            //{
-            //    ErrorMessage = " ";
-            //}
+            if (Pokemons.Count == 0)
+            {
+                ErrorMessage = $"*Could not locate {SearchText} in your Pokedex";
+            }
         }
 
         /// <summary>
@@ -369,9 +399,7 @@ namespace The_Pokedex.ViewModels
         private void OnResetPokemonList(object obj)
         {
             SearchText = "";
-            FilterText = "";
             ErrorMessage = "";
-
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
@@ -383,15 +411,16 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void OnFilterPokemon(object obj)
         {
-            if (Enum.TryParse<Pokemon.Type>(FilterText.ToUpper(), out Pokemon.Type type))
+            if (Type != null)
             {
+                Enum.TryParse(Type, out Pokemon.Type typeToEnum);
                 _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
                 UpdateImageFilePath();
-                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(type)));
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(typeToEnum)));
             }
-            else
+            if (Pokemons.Count == 0)
             {
-                ErrorMessage = $"*Sorry, you do not have any {FilterText.ToUpper()} type Pokemon in your Pokedex";
+                ErrorMessage = $"*Sorry, you do not have any {Type} type Pokemon in your Pokedex";
             }
         }
 
@@ -441,6 +470,7 @@ namespace The_Pokedex.ViewModels
             {
                 _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
                 Pokemons.Add(pokemonOperation.pokemon);
+                UpdateImageFilePath();
             }
         }
 
@@ -464,6 +494,7 @@ namespace The_Pokedex.ViewModels
                 _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
                 Pokemons.Add(pokemonOperation.pokemon);
                 SelectedPokemon = pokemonOperation.pokemon;
+                UpdateImageFilePath();
             }
         }
 
@@ -477,7 +508,6 @@ namespace The_Pokedex.ViewModels
                 (obj as System.Windows.Window).Close();
             }
         }
-
         #endregion
     }
 }
