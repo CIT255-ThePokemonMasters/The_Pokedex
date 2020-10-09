@@ -83,9 +83,9 @@ namespace The_Pokedex.BusinessLayer
                     fileIOStatus = FileIoMessage.NoRecordsFound;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                var errorMessage = e.Message;
                 fileIOStatus = FileIoMessage.FileAccessError;
             }
 
