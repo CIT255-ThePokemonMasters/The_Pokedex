@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using The_Pokedex.BusinessLayer;
 using The_Pokedex.Models;
@@ -523,6 +524,40 @@ namespace The_Pokedex.ViewModels
             _pokemonOperation.Status = PokemonOperation.OperationStatus.OKAY;
             UserPokemon.ImageFileName = UserPokemonImage;
 
+            if (UserPokemon.PokemonType.Count == 0)
+            {
+                UserPokemon.PokemonType.Add(Pokemon.Type.NONE);
+            }
+
+            if (UserPokemon.Weakness.Count == 0)
+            {
+                UserPokemon.Weakness.Add(Pokemon.Type.NONE);
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Name))
+            {
+                UserPokemon.Name = "Unknown";
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Abilities))
+            {
+                UserPokemon.Abilities = "N/A";
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Description))
+            {
+                UserPokemon.Description = "N/A";
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Category))
+            {
+                UserPokemon.Category = "N/A";
+            }
+
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new Uri(@"C:\NMC Classes\CIT255\The_Pokedex\Media\coinSound.wav"));
+            mediaPlayer.Play();
+
             if (obj is System.Windows.Window)
             {
                 (obj as System.Windows.Window).Close();
@@ -892,7 +927,7 @@ namespace The_Pokedex.ViewModels
                 {
                     string iName = op.SafeFileName;
                     string filePath = op.FileName;
-                    if (!File.Exists(filePath))
+                    if (!File.Exists(useablePath + op.SafeFileName))
                     {
                         File.Copy(filePath, appPath + iName);
                         File.Copy(filePath, useablePath + iName);
