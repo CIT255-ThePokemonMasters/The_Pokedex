@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using The_Pokedex.BusinessLayer;
 using The_Pokedex.DataAccessLayer;
 using The_Pokedex.Models;
@@ -70,6 +70,7 @@ namespace The_Pokedex.ViewModels
 
         #region Fields
 
+
         private ObservableCollection<Pokemon> _pokemon;
         private Pokemon _selectedPokemon;
         private Pokemon _detailedViewPokemon;
@@ -78,11 +79,13 @@ namespace The_Pokedex.ViewModels
         private string _typeToString;
         private string _weaknessToString;
         private string _searchText;
-        private string _filterText;
         private string _errorMessage;
         private string _operationFeedback;
 
-        private ComboBox _filterComboBox;
+        private ObservableCollection<string> _typesForFilter;
+        private string _type;
+
+        private string _imageSource;
         #endregion
 
         #region Properties
@@ -149,16 +152,6 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public string FilterText
-        {
-            get { return _filterText; }
-            set
-            {
-                _filterText = value;
-                OnPropertyChanged(nameof(FilterText));
-            }
-        }
-
         public string ErrorMessage
         {
             get { return _errorMessage; }
@@ -180,13 +173,32 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public ComboBox FilterComboBox
+        public ObservableCollection<string> TypeForFilter
         {
-            get { return _filterComboBox; }
+            get { return _typesForFilter; }
             set
             {
-                _filterComboBox = value;
-                OnPropertyChanged(nameof(FilterComboBox));
+                _typesForFilter = value;
+                OnPropertyChanged(nameof(TypeForFilter));
+            }
+        }
+        public string Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged(nameof(Type));
+            }
+        }
+
+        public string ImageSource
+        {
+            get { return _imageSource; }
+            set
+            {
+                _imageSource = value;
+                OnPropertyChanged(nameof(ImageSource));
             }
         }
         #endregion
@@ -197,11 +209,12 @@ namespace The_Pokedex.ViewModels
         {
             _pokemonBusiness = pokemonBusiness;
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-
+            _typesForFilter = new ObservableCollection<string>(Enum.GetNames(typeof(Pokemon.Type)));
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
 
-            SearchText = "";
-            FilterText = "";
+            Devin_MainWindow devin_MainWindow = new Devin_MainWindow();
+
+
 
             UpdateImageFilePath();
         }
@@ -226,13 +239,27 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void UpdateImageFilePath()
         {
-            foreach (var pokemon in _pokemon)
             {
-                pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                string useablePath = @"C:\Users\Khyr\source\repos\The_Pokedex\";
+                //string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
+                //ImageSource = new BitmapImage(new Uri(useablePath)).ToString();
+                foreach (var pokemon in _pokemon)
+                {
+                    try
+                    {
+                        //pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                        pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
+                    }
+                    catch (Exception e)
+                    {
+                        var m = e.Message;
+                        throw;
+                    }
+                }
             }
         }
 
-        private void UpdateDetailedViewPokemonToSelected()
+            private void UpdateDetailedViewPokemonToSelected()
         {
             _detailedViewPokemon = new Pokemon();
             _detailedViewPokemon.ID = _selectedPokemon.ID;
@@ -329,14 +356,17 @@ namespace The_Pokedex.ViewModels
         {
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
-
-            Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
-
+                       
             if (String.IsNullOrEmpty(SearchText))
             {
                 MessageBox.Show("You have to enter a Pokemon name");
-            }          
+            }
+            else
+            {
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.Name.ToLower().Contains(_searchText.ToLower())));
+            }
         }
+           
 
         /// <summary>
         /// Reset Pokemon list
@@ -344,9 +374,7 @@ namespace The_Pokedex.ViewModels
         private void OnResetPokemonList(object obj)
         {
             SearchText = "";
-            FilterText = "";
             ErrorMessage = "";
-
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
             UpdateImageFilePath();
 
@@ -358,11 +386,12 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void OnFilterPokemon(object obj)
         {
-            if (Enum.TryParse<Pokemon.Type>(FilterText.ToUpper(), out Pokemon.Type type))
+            if (Type != null)
             {
+                Enum.TryParse(Type, out Pokemon.Type typeToEnum);
                 _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
                 UpdateImageFilePath();
-                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(type)));
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(typeToEnum)));
             }
             else
             {
@@ -399,6 +428,9 @@ namespace The_Pokedex.ViewModels
             }
         }
 
+        /// <summary>
+        /// add a pokemon
+        /// </summary>
         public void AddPokemon(object obj)
         {
             PokemonOperation pokemonOperation = new PokemonOperation()
@@ -412,10 +444,11 @@ namespace The_Pokedex.ViewModels
 
             if (pokemonOperation.Status != PokemonOperation.OperationStatus.CANCEL)
             {
+                _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
                 Pokemons.Add(pokemonOperation.pokemon);
+                UpdateImageFilePath();
             }
         }
-
 
         public void EditPokemon(object obj)
         {
@@ -437,6 +470,7 @@ namespace The_Pokedex.ViewModels
                 _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
                 Pokemons.Add(pokemonOperation.pokemon);
                 SelectedPokemon = pokemonOperation.pokemon;
+                UpdateImageFilePath();
             }
         }
 
