@@ -30,13 +30,13 @@ namespace The_Pokedex.ViewModels
 
         private void ViewSelection(object obj) 
         {
-           PokemonBusiness pokemonBusiness = new PokemonBusiness();
-
-           Devin_ViewModel devin_ViewModel = new Devin_ViewModel(pokemonBusiness);
-           Devin_MainWindow devin_MainWindow = new Devin_MainWindow();
+           PokemonBusiness pokemonBusiness = new PokemonBusiness();           
 
             Christine_ViewModel christine_ViewModel = new Christine_ViewModel(pokemonBusiness);
             Christine_MainWindow christine_MainWindow = new Christine_MainWindow();
+
+            Devin_ViewModel devin_ViewModel = new Devin_ViewModel(pokemonBusiness);
+            Devin_MainWindow devin_MainWindow = new Devin_MainWindow();
 
             Bruce_ViewModel bruce_ViewModel = new Bruce_ViewModel(pokemonBusiness);
             Bruce_MainWindow bruce_MainWindow = new Bruce_MainWindow();
@@ -45,9 +45,9 @@ namespace The_Pokedex.ViewModels
 
             switch (viewString)
             {
-                case "DevinsView":
-                    devin_MainWindow.DataContext = devin_ViewModel;
-                    devin_MainWindow.Show();
+               case "DevinsView":
+                   devin_MainWindow.DataContext = devin_ViewModel;
+                   devin_MainWindow.Show();
                    break;
                 case "ChristinesView":
                     christine_MainWindow.DataContext = christine_ViewModel;

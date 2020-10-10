@@ -878,7 +878,8 @@ namespace The_Pokedex.ViewModels
         private void AddImage(object image)
         {
             string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Images\";
-            string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\Images\";
+            //string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\Images\";
+            string useablePath = @"C:\Users\Khyr\source\repos\The_Pokedex\";
 
             try
             {
