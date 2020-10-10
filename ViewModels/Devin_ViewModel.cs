@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using The_Pokedex.BusinessLayer;
 using The_Pokedex.DataAccessLayer;
@@ -244,8 +245,15 @@ namespace The_Pokedex.ViewModels
             {
                 try
                 {
-                    //pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
-                    pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
+                    if (pokemon.ImageFileName != null)
+                    {
+                        //pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                        pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
+                    }
+                    else
+                    {
+                        pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + "defaultImage.png")).ToString();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -431,6 +439,10 @@ namespace The_Pokedex.ViewModels
         {
             if (SelectedPokemon != null)
             {
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.Open(new Uri(@"C:\NMC Classes\CIT255\The_Pokedex\Media\warning.wav"));
+                mediaPlayer.Play();
+
                 MessageBoxResult results = MessageBox.Show($"Are you sure you want to remove {SelectedPokemon.Name} from your Pokedex?", "Delete Pokemon", MessageBoxButton.YesNo);
 
                 switch (results)

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using The_Pokedex.BusinessLayer;
@@ -53,6 +54,7 @@ namespace The_Pokedex.ViewModels
 
         private string _imageSource;
         private string _userPokemonImage;
+        private string _errorMessage;
 
         #region type bools
 
@@ -125,6 +127,16 @@ namespace The_Pokedex.ViewModels
             {
                 _userPokemonImage = value;
                 OnPropertyChanged(nameof(UserPokemonImage));
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
 
@@ -516,11 +528,45 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void AddPokemon(object obj)
         {
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new Uri(@"C:\NMC Classes\CIT255\The_Pokedex\Media\coinSound.wav"));
+            mediaPlayer.Play();
+
             UserPokemon.PokemonType = ConvertTypeChecksIntoType();
             UserPokemon.Weakness = ConvertWeaknessChecksIntoType();
             _pokemonOperation.Status = PokemonOperation.OperationStatus.OKAY;
 
             UserPokemon.ImageFileName = UserPokemonImage;
+
+            if (UserPokemon.PokemonType.Count == 0)
+            {
+                UserPokemon.PokemonType.Add(Pokemon.Type.NONE);
+            }
+
+            if (UserPokemon.Weakness.Count == 0)
+            {
+                UserPokemon.Weakness.Add(Pokemon.Type.NONE);
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Name))
+            {
+                UserPokemon.Name = "Unknown";
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Abilities))
+            {
+                UserPokemon.Abilities = "N/A";
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Description))
+            {
+                UserPokemon.Description = "N/A";
+            }
+
+            if (String.IsNullOrEmpty(UserPokemon.Category))
+            {
+                UserPokemon.Category = "N/A";
+            }
 
             if (obj is System.Windows.Window)
             {
@@ -725,14 +771,14 @@ namespace The_Pokedex.ViewModels
                 {
                     string iName = op.SafeFileName;
                     string filePath = op.FileName;
-                    if (!File.Exists(filePath))
+                    if (!File.Exists(useablePath + op.SafeFileName))
                     {
                         File.Copy(filePath, appPath + iName);
                         File.Copy(filePath, useablePath + iName);
                         ImageSource = new BitmapImage(new Uri(op.FileName)).ToString();
                         UserPokemonImage = op.SafeFileName;
                     }
-                    else 
+                    else
                     {
                         ImageSource = new BitmapImage(new Uri(op.FileName)).ToString();
                         UserPokemonImage = op.SafeFileName;

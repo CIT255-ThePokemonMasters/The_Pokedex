@@ -333,7 +333,7 @@
                             HorizontalAlignment="Right"
                             Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
-                           Content="Height:"/>
+                           Content="Height(ft):"/>
                         <TextBox
                             HorizontalAlignment="Left"
                             Grid.Column="1"
@@ -353,7 +353,7 @@
                             HorizontalAlignment="Right"
                             Grid.Column="0"
                            Style="{StaticResource WhiteLabelStyle}"
-                           Content="Weight:"/>
+                           Content="Weight(lbs):"/>
                         <TextBox
                             HorizontalAlignment="Left"
                             Grid.Column="1"
