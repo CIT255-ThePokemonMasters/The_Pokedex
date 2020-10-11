@@ -84,7 +84,7 @@ namespace The_Pokedex.ViewModels
 
         private ObservableCollection<string> _typesForFilter;
         private string _type;
-
+        private string _filterText;
         private string _imageSource;
         #endregion
 
@@ -151,6 +151,17 @@ namespace The_Pokedex.ViewModels
                 OnPropertyChanged(nameof(SearchText));
             }
         }
+
+        public string FilterText
+        {
+            get { return _filterText; }
+            set
+            {
+                _filterText = value;
+                OnPropertyChanged(nameof(FilterText));
+            }
+        }
+
 
         public string ErrorMessage
         {
@@ -386,20 +397,20 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void OnFilterPokemon(object obj)
         {
-            if (Type != null)
-            {
-                Enum.TryParse(Type, out Pokemon.Type typeToEnum);
-                _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-                UpdateImageFilePath();
-                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(typeToEnum)));
-            }
-            else
+            if (String.IsNullOrEmpty(FilterText))
             {
                 MessageBox.Show("You have to enter a type" +
-                        " Fire, Water, Grass, Psychic");   
+                        " Fire, Water, Grass, Psychic");
             }
-        }
 
+            else if (Enum.TryParse<Pokemon.Type>(FilterText.ToUpper(), out Pokemon.Type type))
+            {
+                _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
+                UpdateImageFilePath();
+                Pokemons = new ObservableCollection<Pokemon>(_pokemon.Where(p => p.PokemonType.Contains(type)));
+            }
+
+        }
         /// <summary>
         /// Deletes a pokemon
         /// </summary>
