@@ -322,7 +322,7 @@
                     <!-- Info Text Block -->
                     <Border
                         Grid.Row="0"
-                        BorderThickness="2"
+                        BorderThickness="1"
                         BorderBrush="DarkRed">
                         <StackPanel Grid.Row="0">
                             <Grid
@@ -420,7 +420,7 @@
                     <Border
                         Grid.Row="1"
                         BorderBrush="DarkRed"
-                        BorderThickness="2">
+                        BorderThickness="1">
                         <StackPanel
                         Grid.Row="1">
                             <Image 

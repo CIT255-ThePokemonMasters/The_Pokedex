@@ -239,8 +239,8 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void UpdateImageFilePath()
         {
-            string useablePath = @"C:\Users\Khyr\source\repos\The_Pokedex\";
-            //string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
+            //string useablePath = @"C:\Users\Khyr\source\repos\The_Pokedex\";
+            string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
             //ImageSource = new BitmapImage(new Uri(useablePath)).ToString();
             foreach (var pokemon in _pokemon)
             {
