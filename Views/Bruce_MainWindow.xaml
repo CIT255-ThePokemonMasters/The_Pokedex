@@ -204,14 +204,20 @@
                     <Grid>
                         <Button
                                 Content="Delete"
+                                Command="{Binding DeleteCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"
                                 Style="{StaticResource ButtonStyle}" Margin="323,-89,535,73" 
-                                Height="Auto" Width="Auto"/>
+                                Height="Auto" Width="Auto" Click="Button_Click_2"/>
                         <Button
                                 Content="Add"
+                                Command="{Binding ButtonAddCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"
                                 Style="{StaticResource ButtonStyle}" Margin="41,-89,817,73"
                                 Height="Auto" Width="Auto"/>
                         <Button
                                 Content="Edit"
+                                Command="{Binding ButtonEditCommand}"
+                                CommandParameter="{Binding Text, ElementName=Quantity}"
                                 Style="{StaticResource ButtonStyle}" Margin="185,-89,673,73"
                                 Height="Auto" Width="Auto"/>
                         <Button
@@ -221,9 +227,10 @@
                                 Height="45" Width="Auto"/>
                         <Button
                                 Content="Exit"
-                                Command="{Binding ViewSelectionCommand}" CommandParameter="Exit"
+                                Command="{Binding ExitCommand}" 
+                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource ButtonStyle}" Margin="790,228,48,-227"
-                                Height="Auto" Width="Auto"/>
+                                Height="Auto" Width="Auto" Click="Button_Click_3"/>
                         <Button
                                 Content="Name"
                                 Command="{Binding Path= SortPokemonCommand}" CommandParameter="Name"
