@@ -5,13 +5,16 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using The_Pokedex.BusinessLayer;
 using The_Pokedex.DataAccessLayer;
 using The_Pokedex.Models;
 using The_Pokedex.UtilityClass;
 using The_Pokedex.Views;
+
 
 namespace The_Pokedex.ViewModels
 {
@@ -19,9 +22,10 @@ namespace The_Pokedex.ViewModels
     {
         #region Commands
 
-        /// <summary>
-        /// view character comman
-        /// </summary>
+        ///
+        /// View Commands
+        ///
+
         public ICommand ViewCharacterCommand { get; set; }
 
         public ICommand SortPokemonCommand
@@ -44,9 +48,29 @@ namespace The_Pokedex.ViewModels
             get { return new RelayCommand(new Action<object>(OnFilterPokemon)); }
         }
 
-        public ICommand ViewSelectionCommand
+        //public ICommand ViewSelectionCommand
+        //{
+        //    get { return new RelayCommand(new Action<object>(ViewSelection)); }
+        //}
+
+        public ICommand DeleteCommand
         {
-            get { return new RelayCommand(new Action<object>(ViewSelection)); }
+            get { return new RelayCommand(new Action<object>(DeletePokemon)); }
+        }
+
+        public ICommand ButtonAddCommand
+        {
+            get { return new RelayCommand(new Action<object>(AddPokemon)); }
+        }
+
+        public ICommand ButtonEditCommand
+        {
+            get { return new RelayCommand(new Action<object>(EditPokemon)); }
+        }
+
+        public ICommand ExitCommand
+        {
+            get { return new RelayCommand(new Action<object>(Exit)); }
         }
 
         #endregion
@@ -63,8 +87,13 @@ namespace The_Pokedex.ViewModels
         private string _searchText;
         private string _filterText;
         private string _errorMessage;
+        private string _operationFeedback;
 
-        private ComboBox _filterComboBox;
+
+        private ObservableCollection<string> _typesForFilter;
+        private string _type;
+        //private string _filterText;
+        private string _imageSource;
         #endregion
 
         #region Properties
@@ -141,6 +170,7 @@ namespace The_Pokedex.ViewModels
             }
         }
 
+
         public string ErrorMessage
         {
             get { return _errorMessage; }
@@ -152,13 +182,42 @@ namespace The_Pokedex.ViewModels
             }
         }
 
-        public ComboBox FilterComboBox
+        public string Operationfeedback
         {
-            get { return _filterComboBox; }
+            get { return _operationFeedback; }
             set
             {
-                _filterComboBox = value;
-                OnPropertyChanged(nameof(FilterComboBox));
+                _operationFeedback = value;
+                OnPropertyChanged(nameof(Operationfeedback));
+            }
+        }
+
+        public ObservableCollection<string> TypeForFilter
+        {
+            get { return _typesForFilter; }
+            set
+            {
+                _typesForFilter = value;
+                OnPropertyChanged(nameof(TypeForFilter));
+            }
+        }
+        public string Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged(nameof(Type));
+            }
+        }
+
+        public string ImageSource
+        {
+            get { return _imageSource; }
+            set
+            {
+                _imageSource = value;
+                OnPropertyChanged(nameof(ImageSource));
             }
         }
         #endregion
@@ -169,11 +228,12 @@ namespace The_Pokedex.ViewModels
         {
             _pokemonBusiness = pokemonBusiness;
             _pokemon = new ObservableCollection<Pokemon>(_pokemonBusiness.AllPokemon());
-
+            _typesForFilter = new ObservableCollection<string>(Enum.GetNames(typeof(Pokemon.Type)));
             ViewCharacterCommand = new RelayCommand(new Action<object>(OnViewPokemon));
 
-            SearchText = "";
-            FilterText = "";
+            Devin_MainWindow devin_MainWindow = new Devin_MainWindow();
+
+
 
             UpdateImageFilePath();
         }
@@ -198,9 +258,23 @@ namespace The_Pokedex.ViewModels
         /// </summary>
         private void UpdateImageFilePath()
         {
-            foreach (var pokemon in _pokemon)
             {
-                pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                //string useablePath = @"C:\Users\Khyr\source\repos\The_Pokedex\";
+                //string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
+                //ImageSource = new BitmapImage(new Uri(useablePath)).ToString();
+                foreach (var pokemon in _pokemon)
+                {
+                    try
+                    {
+                        pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                        //pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
+                    }
+                    catch (Exception e)
+                    {
+                        var m = e.Message;
+                        throw;
+                    }
+                }
             }
         }
 
@@ -349,16 +423,85 @@ namespace The_Pokedex.ViewModels
         /// <summary>
         /// method for menu bar
         /// </summary>
-        private void ViewSelection(object obj)
+        private void Exit(object obj)
         {
-            string viewString = obj.ToString();
-            switch (viewString)
+            if (obj is System.Windows.Window)
             {
-                case "Exit":
-                    Environment.Exit(0);
-                    break;
-                default:
-                    break;
+                (obj as System.Windows.Window).Close();
+            }
+        }
+
+        /// <summary>
+        /// Deletes a pokemon
+        /// </summary>
+        public void DeletePokemon(object obj)
+        {
+            if (SelectedPokemon != null)
+            {
+                MessageBoxResult results = MessageBox.Show($"Are you sure you want to remove {SelectedPokemon.Name} from your Pokedex?", "Delete Pokemon", MessageBoxButton.YesNo);
+
+                switch (results)
+                {
+                    case MessageBoxResult.Yes:
+                        _pokemonBusiness.DeletePokemon(SelectedPokemon.ID);
+
+                        Pokemons.Remove(SelectedPokemon);
+                        Operationfeedback = $"{SelectedPokemon.Name} has been removed.";
+
+                        if (Pokemons.Any()) SelectedPokemon = Pokemons[0];
+                        break;
+                    case MessageBoxResult.No:
+                        Operationfeedback = "Deletion canceled.";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// add a pokemon
+        /// </summary>
+        public void AddPokemon(object obj)
+        {
+            PokemonOperation pokemonOperation = new PokemonOperation()
+            {
+                Status = PokemonOperation.OperationStatus.CANCEL,
+                pokemon = new Pokemon()
+            };
+
+            Window devin_addWindow = new Devin_AddWindow(pokemonOperation);
+            devin_addWindow.ShowDialog();
+
+            if (pokemonOperation.Status != PokemonOperation.OperationStatus.CANCEL)
+            {
+                _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
+                Pokemons.Add(pokemonOperation.pokemon);
+                UpdateImageFilePath();
+            }
+        }
+
+        public void EditPokemon(object obj)
+        {
+            PokemonOperation pokemonOperation = new PokemonOperation()
+            {
+                Status = PokemonOperation.OperationStatus.CANCEL,
+                pokemon = SelectedPokemon
+            };
+
+            if (SelectedPokemon != null)
+            {
+                Window devin_editWindow = new Devin_EditWindow(pokemonOperation);
+                devin_editWindow.ShowDialog();
+            }
+
+            if (pokemonOperation.Status != PokemonOperation.OperationStatus.CANCEL)
+            {
+                Pokemons.Remove(SelectedPokemon);
+                _pokemonBusiness.AddPokemon(pokemonOperation.pokemon);
+                Pokemons.Add(pokemonOperation.pokemon);
+                SelectedPokemon = pokemonOperation.pokemon;
+                UpdateImageFilePath();
             }
         }
 

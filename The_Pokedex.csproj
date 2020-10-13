@@ -235,10 +235,6 @@
     <Content Include="DataAccessLayer\SQL\Pokemon.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DataAccessLayer\SQL\Pokemon_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Pokemon.mdf</DependentUpon>
-    </Content>
     <Content Include="Images\bulbasaur.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
