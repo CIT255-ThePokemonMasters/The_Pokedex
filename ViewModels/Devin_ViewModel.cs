@@ -240,8 +240,8 @@ namespace The_Pokedex.ViewModels
         private void UpdateImageFilePath()
         {
             //string useablePath = @"C:\Users\Khyr\source\repos\The_Pokedex\";
-            //string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
-            string useablePath = @"C:\Users\pipbo\Documents\CIT255\Pokedex\";
+            string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
+            //string useablePath = @"C:\Users\pipbo\Documents\CIT255\Pokedex\";
             //ImageSource = new BitmapImage(new Uri(useablePath)).ToString();
             foreach (var pokemon in _pokemon)
             {
@@ -249,8 +249,8 @@ namespace The_Pokedex.ViewModels
                 {
                     if (pokemon.ImageFileName != null)
                     {
-                        pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
-                        //pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
+                        //pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                        pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
                     }
                     else
                     {

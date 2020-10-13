@@ -252,14 +252,14 @@ namespace The_Pokedex.ViewModels
         {
             {
                 //string useablePath = @"C:\Users\Khyr\source\repos\The_Pokedex\";
-                //string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
+                string useablePath = @"C:\NMC Classes\CIT255\The_Pokedex\";
                 //ImageSource = new BitmapImage(new Uri(useablePath)).ToString();
                 foreach (var pokemon in _pokemon)
                 {
                     try
                     {
-                        pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
-                        //pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
+                        //pokemon.ImageFilePath = DataConfig.ImagePath + pokemon.ImageFileName;
+                        pokemon.ImageFilePath = new BitmapImage(new Uri(useablePath + DataConfig.ImagePath + pokemon.ImageFileName)).ToString();
                     }
                     catch (Exception e)
                     {
