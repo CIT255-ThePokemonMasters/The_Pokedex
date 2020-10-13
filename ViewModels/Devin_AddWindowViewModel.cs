@@ -568,6 +568,11 @@ namespace The_Pokedex.ViewModels
                 UserPokemon.Category = "N/A";
             }
 
+            if (String.IsNullOrEmpty(UserPokemon.ImageFileName))
+            {
+                UserPokemon.ImageFileName = "defaultImage.png";
+            }
+
             if (obj is System.Windows.Window)
             {
                 (obj as System.Windows.Window).Close();
@@ -781,8 +786,8 @@ namespace The_Pokedex.ViewModels
                     }
                     else
                     {
-                        ImageSource = new BitmapImage(new Uri(op.FileName)).ToString();
-                        UserPokemonImage = op.SafeFileName;
+                            ImageSource = new BitmapImage(new Uri(op.FileName)).ToString();
+                            UserPokemonImage = op.SafeFileName;
                     }
                 }
             }

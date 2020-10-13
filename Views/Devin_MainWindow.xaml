@@ -409,10 +409,12 @@
                                     Width="400"/>
                                 </StackPanel>
                                 <TextBlock 
-                                Text="{Binding SelectedPokemon.Description}"
-                                Grid.Row="4"
-                                Padding="5"
-                                Style="{StaticResource LargeInfoBoxStyle}"/>
+                                    Width="480"
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding SelectedPokemon.Description}"
+                                    Grid.Row="4"
+                                    Padding="5"
+                                    Style="{StaticResource LargeInfoBoxStyle}"/>
                             </Grid>
                         </StackPanel>
                     </Border>

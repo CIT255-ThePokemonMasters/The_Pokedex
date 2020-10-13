@@ -554,6 +554,11 @@ namespace The_Pokedex.ViewModels
                 UserPokemon.Category = "N/A";
             }
 
+            if (String.IsNullOrEmpty(UserPokemon.ImageFileName))
+            {
+                UserPokemon.ImageFileName = "defaultImage.png";
+            }
+
             MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.Open(new Uri(@"C:\NMC Classes\CIT255\The_Pokedex\Media\coinSound.wav"));
             mediaPlayer.Play();
